@@ -26,6 +26,10 @@
             <GridSplitter/>
             <Button Content="Выход" Command="{Binding ExitAppCommand}"/>
         </UniformGrid>
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Row="1">
+            <Frame.DataContext>
+                <ct:ApplicationSPECIAL/>
+            </Frame.DataContext>
+        </Frame>
     </Grid>
 </Window>

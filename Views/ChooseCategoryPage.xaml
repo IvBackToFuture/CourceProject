@@ -21,7 +21,7 @@
                                 <Button Content="{Binding catName}" 
                                         Command="{Binding DataContext.ShowGoodsOnChoosenCategoryCommand,
                                         ElementName=Page}"
-                                        CommandParameter="{Binding catNumber}"/>
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>

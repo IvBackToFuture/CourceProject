@@ -40,17 +40,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
-        #region Текущая страница
-
-        private Page _CurrentPage;
-        public Page CurrentPage
-        {
-            get => _CurrentPage;
-            set => Set(ref _CurrentPage, value);
-        }
-
-        #endregion
-
         public MainWindowViewModel()
         {
             #region Команды
@@ -59,8 +48,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
 
             #endregion
-
-            CurrentPage = new ChooseCategoryPage();
         }
     }
 }

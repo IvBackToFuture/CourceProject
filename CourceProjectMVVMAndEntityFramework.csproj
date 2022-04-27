@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Infrastructure\Commands\Base\BaseCommand.cs" />
     <Compile Include="Infrastructure\Commands\Base\LambdaCommand.cs" />
+    <Compile Include="ViewModels\ApplicationSPECIAL.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\ChooseCategoryPageViewModel.cs" />
     <Compile Include="ViewModels\GoodsOnCategoryPageViewModel.cs" />

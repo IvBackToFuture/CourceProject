@@ -1,6 +1,7 @@
 ﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
+using CourceProjectMVVMAndEntityFramework.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CourceProjectMVVMAndEntityFramework.Views;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
@@ -36,10 +38,8 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanShowGoodsOnChoosenCategoryCommandExecute(object d) => true;
         private void OnShowGoodsOnChoosenCategoryCommandExecuted(object d)
         {
-            //using (OneStopStoreEntities context = new OneStopStoreEntities())
-            //{
-            //    MessageBox.Show(context.Categories.Find(d).Goods.ToList()[0].goodsName);
-            //}
+            GoodsOnCategoryPageViewModel.ChoosenCategory = (Categories)d;
+            ApplicationSPECIAL.GetApp().CurrentPage = new GoodsOnCategoryPage();
         }
 
         #endregion
@@ -59,7 +59,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             #endregion
 
             Categories = new ObservableCollection<Categories>(OneStopStoreEntities.GetContext().Categories);
-
         }
     }
 }

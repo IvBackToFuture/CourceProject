@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
       xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+      xmlns:tree="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GoodsOnCategoryPage">
@@ -18,6 +19,21 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <TreeView ItemsSource="{Binding Json}">
+                    <TreeView.Resources>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsExpanded" Value="True"/>
+                        </Style>
+                        <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type tree:JValue}">
+                            <CheckBox Content="{Binding Path=Value}"
+                                                  Command="{Binding DataContext.JsonCheckboxCommand, ElementName=Main}"
+                                                  CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
             </Grid>
         </GroupBox>
     </Grid>
