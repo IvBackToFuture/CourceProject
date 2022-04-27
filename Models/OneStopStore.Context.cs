@@ -15,6 +15,9 @@ namespace CourceProjectMVVMAndEntityFramework.Models
     
     public partial class OneStopStoreEntities : DbContext
     {
+        private static OneStopStoreEntities _Context = new OneStopStoreEntities();
+        public static OneStopStoreEntities GetContext() => _Context;
+
         public OneStopStoreEntities()
             : base("name=OneStopStoreEntities")
         {

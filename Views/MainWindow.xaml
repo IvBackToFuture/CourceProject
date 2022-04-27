@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ct="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
         xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <ct:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -18,10 +22,10 @@
                     <Setter Property="Height" Value="20"/>
                 </Style>
             </UniformGrid.Resources>
-            <Button Content="Назад"/>
-            <Button Content="Домой"/>
-            <Button Content="Выход"/>
+            <Button Content="Назад" Command="{Binding MoveBackCommand}" CommandParameter="{Binding ElementName=MainFrame}"/>
+            <GridSplitter/>
+            <Button Content="Выход" Command="{Binding ExitAppCommand}"/>
         </UniformGrid>
-        <Frame/>
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>
