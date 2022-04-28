@@ -9,6 +9,8 @@ using CourceProjectMVVMAndEntityFramework.Views;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using CourceProjectMVVMAndEntityFramework.Models;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
@@ -31,6 +33,28 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Список категорий для ComboBox'а
+
+        private ObservableCollection<Categories> _Categories;
+        public ObservableCollection<Categories> Categories
+        {
+            get => _Categories;
+            set => Set(ref _Categories, value);
+        }
+
+        #endregion
+
+        #region Выбранная категория
+
+        private Categories _ChoosenCategory;
+        public Categories ChoosenCategory
+        {
+            get => _ChoosenCategory;
+            set => Set(ref _ChoosenCategory, value);
+        }
+
+        #endregion
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -38,6 +62,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
 
             #endregion
+
+            Categories = new ObservableCollection<Categories>(OneStopStoreEntities.GetContext().Categories);
+            Categories AllCategory = OneStopStoreEntities.GetContext().Categories.Create();
+            AllCategory.catName = "Везде";
+            Categories.Insert(0, AllCategory);
         }
     }
 }
