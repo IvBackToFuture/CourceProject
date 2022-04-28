@@ -13,7 +13,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Текущая страница во фрейме
 
+        /// <summary>Текущая страница во фрейме</summary>
         private Page _CurrentPage;
+        /// <summary>Текущая страница во фрейме</summary>
         public Page CurrentPage
         {
             get => _CurrentPage;
@@ -24,13 +26,23 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         public ApplicationSPECIAL()
         {
-            CurrentPage = new ChooseCategoryPage();
-            SPECIAL = this;
+            CurrentPage = new ChooseCategoryPage(); //При генерации окна сгенерируется и первая страница
+            SPECIAL = this;                         //Объект класса запишется в статическое поле,
+                                                    //для возможности дальшейшего изменения выводимой страницы
         }
 
-        #region Поле и метод для получения объекта данного класса
+        #region Корзина для покупок
 
+        /// <summary>Корзина для покупок</summary>
+        public static Dictionary<int, int> ShoppingCart = new Dictionary<int, int>();
+
+        #endregion
+
+        #region Поле и метод для получения объекта данного класса
+        /// <summary>Поле для получения объекта данного класса</summary>
         private static ApplicationSPECIAL SPECIAL;
+        /// <summary>Метод для получения объекта данного класса</summary>
+        /// <returns>Возвращает поле объекта класса ApplicationSPECIAL</returns>
         public static ApplicationSPECIAL GetApp()
         {
             return SPECIAL;

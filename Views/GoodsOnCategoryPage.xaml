@@ -16,24 +16,36 @@
         <GroupBox Header="Товары">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TreeView ItemsSource="{Binding Json}">
-                    <TreeView.Resources>
-                        <Style TargetType="TreeViewItem">
-                            <Setter Property="IsExpanded" Value="True"/>
-                        </Style>
-                        <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
-                            <TextBlock Text="{Binding Path=Name}"/>
-                        </HierarchicalDataTemplate>
-                        <DataTemplate DataType="{x:Type tree:JValue}">
-                            <CheckBox Content="{Binding Path=Value}"
+                <DockPanel>
+                    <TreeView DockPanel.Dock="Top">
+                        <TreeViewItem>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="От:"/>
+                                <TextBox/>
+                                <TextBlock Text="до:"/>
+                                <TextBox/>
+                            </StackPanel>
+                        </TreeViewItem>
+                    </TreeView>
+                    <TreeView ItemsSource="{Binding Json}" BorderThickness="0">
+                        <TreeView.Resources>
+                            <Style TargetType="TreeViewItem">
+                                <Setter Property="IsExpanded" Value="True"/>
+                            </Style>
+                            <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </HierarchicalDataTemplate>
+                            <DataTemplate DataType="{x:Type tree:JValue}">
+                                <CheckBox Content="{Binding Path=Value}"
                                                   Command="{Binding DataContext.JsonCheckboxCommand, ElementName=Main}"
                                                   CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
+                            </DataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </DockPanel>
             </Grid>
         </GroupBox>
     </Grid>

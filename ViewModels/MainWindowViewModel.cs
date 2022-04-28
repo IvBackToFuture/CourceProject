@@ -16,15 +16,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Команды
 
-        #region Комманда выхода из приложения
-
-        /// <summary>Комманда выхода из приложения</summary>
-        public ICommand ExitAppCommand { get; }
-        private bool CanExitAppCommandExecute(object d) => true;
-        private void OnExitAppCommandExecuted(object d) => Application.Current.Shutdown();
-
-        #endregion
-
         #region Комманда возвращения на предыдущую страницу
 
         /// <summary>Комманда возвращения на предыдущую страницу</summary>
@@ -44,7 +35,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         {
             #region Команды
 
-            ExitAppCommand = new LambdaCommand(OnExitAppCommandExecuted, CanExitAppCommandExecute);
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
 
             #endregion
