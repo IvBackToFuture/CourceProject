@@ -35,16 +35,44 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Список товаров
+
+        private ObservableCollection<Goods> _Goods;
+        public ObservableCollection<Goods> Goods
+        {
+            get => _Goods;
+            set => Set(ref _Goods, value);
+        }
+
+        #endregion
+
         #region Статическое своство для связки Выбора-демонстрации категории товаров
 
         public static Categories ChoosenCategory { get; set; }
 
         #endregion
 
+        #region Статическое свойство для связки поисковой строки и демонстрации товаров 
+
+        public static string _SearchStr { get; set; }
+
+        #endregion
+
         public GoodsOnCategoryPageViewModel()
         {
+            string SearchStr = _SearchStr ?? "";
             Category = ChoosenCategory;
-            Json = (JObject)JsonConvert.DeserializeObject(Category.catJson);
+            if (Category.catJson != null)
+            {
+                Goods = new ObservableCollection<Goods>(OneStopStoreEntities.GetContext().Goods.Where(
+                    x => x.catNumber == Category.catNumber && x.goodsName.ToLower().Contains(SearchStr)));
+                Json = (JObject)JsonConvert.DeserializeObject(Category.catJson);
+            }
+            else
+            {
+                Goods = new ObservableCollection<Goods>(OneStopStoreEntities.GetContext().Goods.Where(
+                    x => x.goodsName.ToLower().Contains(SearchStr)));
+            }
         }
     }
 }

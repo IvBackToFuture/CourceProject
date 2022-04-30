@@ -31,6 +31,23 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Комманда поиска по наименованию
+
+        /// <summary>Комманда поиска по наименованию</summary>
+        public ICommand FindOnNameCommand { get; }
+        private bool CanFindOnNameCommandExecute(object d) => true;
+        private void OnFindOnNameCommandExecuted(object d)
+        {
+            if (!string.IsNullOrWhiteSpace(SearchString))
+            {
+                GoodsOnCategoryPageViewModel.ChoosenCategory = ChoosenCategory;
+                GoodsOnCategoryPageViewModel._SearchStr = SearchString;
+                ApplicationSPECIAL.GetApp().CurrentPage = new GoodsOnCategoryPage();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Список категорий для ComboBox'а
@@ -55,11 +72,23 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Поисковая строка
+
+        private string _SearchString;
+        public string SearchString
+        {
+            get => _SearchString;
+            set => Set(ref _SearchString, value);
+        }
+
+        #endregion
+
         public MainWindowViewModel()
         {
             #region Команды
 
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
+            FindOnNameCommand = new LambdaCommand(OnFindOnNameCommandExecuted, CanFindOnNameCommandExecute);
 
             #endregion
 

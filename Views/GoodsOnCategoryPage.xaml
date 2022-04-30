@@ -19,33 +19,82 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DockPanel>
-                    <TreeView DockPanel.Dock="Top">
-                        <TreeViewItem>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="От:"/>
-                                <TextBox/>
-                                <TextBlock Text="до:"/>
-                                <TextBox/>
-                            </StackPanel>
-                        </TreeViewItem>
-                    </TreeView>
-                    <TreeView ItemsSource="{Binding Json}" BorderThickness="0">
-                        <TreeView.Resources>
+                <GroupBox Header="Фильтр">
+                    <DockPanel>
+                        <DockPanel.Resources>
                             <Style TargetType="TreeViewItem">
                                 <Setter Property="IsExpanded" Value="True"/>
                             </Style>
-                            <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
-                                <TextBlock Text="{Binding Path=Name}"/>
-                            </HierarchicalDataTemplate>
-                            <DataTemplate DataType="{x:Type tree:JValue}">
-                                <CheckBox Content="{Binding Path=Value}"
+                            <Style TargetType="TreeView">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <TreeView DockPanel.Dock="Top">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <TextBlock Text="Цена"/>
+                                </TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="От:"/>
+                                    <TextBox Width="50"/>
+                                    <TextBlock Text="до:"/>
+                                    <TextBox Width="50"/>
+                                </StackPanel>
+                            </TreeViewItem>
+                        </TreeView>
+                        <TreeView ItemsSource="{Binding Json}">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type tree:JValue}">
+                                    <CheckBox Content="{Binding Path=Value}"
                                                   Command="{Binding DataContext.JsonCheckboxCommand, ElementName=Main}"
                                                   CommandParameter="{Binding}"/>
-                            </DataTemplate>
-                        </TreeView.Resources>
-                    </TreeView>
-                </DockPanel>
+                                </DataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="Товары">
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding Goods}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5" BorderThickness="2" BorderBrush="Black">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" HorizontalAlignment="Left" CornerRadius="13" Margin="2" BorderThickness="1" BorderBrush="Black" Width="200" Height="200">
+                                                <Image Source="{Binding goodsPicture}"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" Margin="50,50,0,0">
+                                                <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsName}"/>
+                                                <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost}"/>
+                                            </StackPanel>
+                                            <Button Grid.Column="2" Width="220" Height="80">
+                                                <Button.Content>
+                                                    <TextBlock Text="Добавить в корзину" FontSize="20"/>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </GroupBox>
             </Grid>
         </GroupBox>
     </Grid>
