@@ -33,7 +33,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Корзина для покупок
 
-        /// <summary>Корзина для покупок</summary>
+        /// <summary>Корзина для покупок. Ключ - номер товара. Значение - кол-во</summary>
         public static Dictionary<int, int> ShoppingCart = new Dictionary<int, int>();
 
         #endregion
