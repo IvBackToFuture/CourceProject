@@ -24,6 +24,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Номер текущего пользователя из бд
+
+        public static int _CurrentUserId { get; set; } = 0;
+
+        #endregion
+
         public ApplicationSPECIAL()
         {
             CurrentPage = new ChooseCategoryPage(); //При генерации окна сгенерируется и первая страница

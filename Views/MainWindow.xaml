@@ -7,6 +7,7 @@
         xmlns:icon="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework"
         xmlns:cat="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" 
         Title="MainWindow" MinWidth="960" MinHeight="540">
     <!--Height="720" Width="1280" 9:16-->
@@ -15,7 +16,7 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -28,22 +29,18 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
-                <Style TargetType="Button">
-                    <!--<Setter Property="Width" Value="100"/>-->
-                    <!--<Setter Property="Height" Value="30"/>-->
-                    <Setter Property="Margin" Value="5"/>
-                </Style>
-                <Style TargetType="TextBlock">
+                <!--<Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="10"/>
                     <Setter Property="FontWeight" Value="DemiBold"/>
                     <Setter Property="Foreground" Value="Black"/>
-                </Style>
+                </Style>-->
                 <Style TargetType="{x:Type icon:ImageAwesome}">
                     <Setter Property="Height" Value="13"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Style>
             </Grid.Resources>
-            <Button Grid.Column="0" Command="{Binding MoveBackCommand}" 
-                    CommandParameter="{Binding ElementName=MainFrame}">
+            <Button Grid.Column="0" Command="{Binding MoveBackCommand}" Margin="5"
+                    CommandParameter="{Binding ElementName=MainFrame}" Height="Auto">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Solid_ArrowLeft"/>
@@ -51,28 +48,20 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <ComboBox Grid.Column="1" Margin="0,5,0,5" FontSize="18" ItemsSource="{Binding Categories}"
-                      SelectedItem="{Binding ChoosenCategory}" SelectedIndex="0">
+            <ComboBox Grid.Column="1" Margin="0,5,0,5" FontSize="13" ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding ChoosenCategory}" SelectedIndex="0" VerticalContentAlignment="Center"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding catName}" TextTrimming="CharacterEllipsis"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox x:Name="SearchGoods" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="0,5,0,5" Padding="10,0,10,0" FontSize="18"/>
-            <TextBlock IsHitTestVisible="False" Grid.Column="2" Text="Искать" Padding="11,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkGray" FontSize="18">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=SearchGoods}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <Button Grid.Column="3" Margin="0,5,0,5" Command="{Binding FindOnNameCommand}">
+            <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="0,5,0,5" Padding="10,12,10,12" FontSize="18"
+                     md:HintAssist.Hint="Искать" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     VerticalContentAlignment="Center"/>
+            <Button Grid.Column="3" Margin="0,5,0,5" Height="Auto"
+                    Command="{Binding FindOnNameCommand}">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Solid_Search"/>
@@ -80,7 +69,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="4" Margin="5,5,0,5">
+            <Button Grid.Column="4" Margin="5,5,0,5" Height="Auto">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Solid_ShoppingCart"/>
@@ -88,22 +77,12 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="5">
+            <Button Grid.Column="5" Command="{Binding AutoRegWindowOpenCommand}" 
+                    Margin="5" Height="Auto">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Regular_Smile"/>
-                        <TextBlock Text="Аккаунт">
-                            <!--<TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="Войти"/>
-                                    <Style.Triggers>
-                                        <Trigger>
-                                            <Setter Property="Text" Value="Аккаунт"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>-->
-                        </TextBlock>
+                        <TextBlock Text="Аккаунт"/>
                     </StackPanel>
                 </Button.Content>
             </Button>

@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
         mc:Ignorable="d"
-        Title="AutorisationWindow" Height="450" Width="450"
+        Title="AutorisationWindow" Height="450" Width="450" x:Name="window"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.DataContext>
+        <dc:AutorisationWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -20,29 +24,29 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Вход" Width="{Binding ElementName=c1, Path=ActualWidth}">
                 <StackPanel Margin="30">
-                    <TextBox Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30"
+                    <TextBox Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30" Text="{Binding ALogin}"
                              VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
-                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" MaxLength="30"
-                             VerticalContentAlignment="Center"  md:HintAssist.Hint="Пароль"
+                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" MaxLength="30" PasswordChanged="APassword_PasswordChanged"
+                             VerticalContentAlignment="Center"  md:HintAssist.Hint="Пароль" x:Name="APassword"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
-                    <Button Margin="10,10,10,0" Height="50" Content="Войти"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+                    <Button Margin="10,10,10,0" Height="50" Content="Войти" Command="{Binding AutorisationCommand}" CommandParameter="{Binding ElementName=window}"/>
+                    <TextBlock Text="{Binding AErrorMessage}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Регистрация" Width="{Binding ElementName=c1, Path=ActualWidth}">
                 <StackPanel Margin="30,10,30,10">
-                    <TextBox Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30" 
+                    <TextBox Text="{Binding RLogin}" Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30" 
                              VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
-                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0"
+                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" x:Name="RFPassword" PasswordChanged="RFPassword_PasswordChanged"
                                  VerticalContentAlignment="Center" MaxLength="30" md:HintAssist.Hint="Пароль"
                                  Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
-                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0"
+                    <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" x:Name="RSPassword" PasswordChanged="RSPassword_PasswordChanged"
                                  VerticalContentAlignment="Center" MaxLength="30" md:HintAssist.Hint="Пароль (повтор)"
                                  Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
-                    <Button Margin="10,10,10,0" Height="50" Content="Зарегистрироваться"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+                    <Button Margin="10,10,10,0" Height="50" Content="Зарегистрироваться" Command="{Binding RegistrateCommand}" CommandParameter="{Binding ElementName=window}"/>
+                    <TextBlock Text="{Binding RErrorMessage}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                 </StackPanel>
             </TabItem>
         </TabControl>

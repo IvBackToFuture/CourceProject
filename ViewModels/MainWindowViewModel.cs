@@ -31,6 +31,17 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Команда перехода в окну аторизации/регистрации
+
+        public ICommand AutoRegWindowOpenCommand { get; }
+        private bool CanAutoRegWindowOpenCommandExecute(object d) => true;
+        private void OnAutoRegWindowOpenCommandExecuted(object d)
+        {
+            new AutorisationWindow().ShowDialog();
+        }
+
+        #endregion
+
         #region Комманда поиска по наименованию
 
         /// <summary>Комманда поиска по наименованию</summary>
@@ -89,6 +100,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
             FindOnNameCommand = new LambdaCommand(OnFindOnNameCommandExecuted, CanFindOnNameCommandExecute);
+            AutoRegWindowOpenCommand = new LambdaCommand(OnAutoRegWindowOpenCommandExecuted, CanAutoRegWindowOpenCommandExecute);
 
             #endregion
 

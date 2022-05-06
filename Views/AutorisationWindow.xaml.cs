@@ -23,5 +23,20 @@ namespace CourceProjectMVVMAndEntityFramework.Views
         {
             InitializeComponent();
         }
+
+        private void APassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)this.DataContext).APassword = APassword.Password;
+        }
+
+        private void RFPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)this.DataContext).RFPassword = RFPassword.Password;
+        }
+
+        private void RSPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)this.DataContext).RSPassword = RSPassword.Password;
+        }
     }
 }
