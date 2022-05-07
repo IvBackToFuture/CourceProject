@@ -9,6 +9,8 @@
 
 namespace CourceProjectMVVMAndEntityFramework.Models
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     
@@ -28,7 +30,8 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public double goodsCost { get; set; }
         public byte[] goodsPicture { get; set; }
         public string goodsJson { get; set; }
-    
+        public JObject JSON { get; set; }
+
         public virtual Categories Categories { get; set; }
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
       xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
       xmlns:tree="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" x:Name="Main"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GoodsOnCategoryPage">
     <Page.DataContext>
@@ -51,9 +51,9 @@
                                     <TextBlock Text="{Binding Path=Name}"/>
                                 </HierarchicalDataTemplate>
                                 <DataTemplate DataType="{x:Type tree:JValue}">
-                                    <CheckBox Content="{Binding Path=Value}"
-                                                  Command="{Binding DataContext.JsonCheckboxCommand, ElementName=Main}"
-                                                  CommandParameter="{Binding}"/>
+                                    <CheckBox x:Name="cb" Content="{Binding Path=Value}"
+                                                  Command="{Binding DataContext.ChangeSearchDictionaryCommand, ElementName=Main}"
+                                                  CommandParameter="{Binding ElementName=cb}"/>
                                 </DataTemplate>
                             </TreeView.Resources>
                         </TreeView>

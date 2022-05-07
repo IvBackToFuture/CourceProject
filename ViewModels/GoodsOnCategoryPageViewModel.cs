@@ -1,4 +1,5 @@
-﻿using CourceProjectMVVMAndEntityFramework.Models;
+﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
+using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
@@ -46,6 +49,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Словарь для поиска по свойствам для JSON
+
+        Dictionary<string, List<string>> PropertiesSeacrh = new Dictionary<string, List<string>>();
+
+        #endregion
+
         #region Статическое своство для связки Выбора-демонстрации категории товаров
 
         public static Categories ChoosenCategory { get; set; }
@@ -72,6 +81,59 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             {
                 Goods = new ObservableCollection<Goods>(OneStopStoreEntities.GetContext().Goods.Where(
                     x => x.goodsName.ToLower().Contains(SearchStr)));
+            }
+            ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
+        }
+
+        #region Команда изменения словаря по CheckBox'ам
+
+        public ICommand ChangeSearchDictionaryCommand { get; }
+        private bool CanChangeSearchDictionaryCommandExecute(object d) => true;
+        private void OnChangeSearchDictionaryCommandExecuted(object d)
+        {
+            CheckBox CurrentCheckBox = d as CheckBox;
+            string value = (CurrentCheckBox.DataContext as JValue).ToString();
+            string property = ((CurrentCheckBox.DataContext as JValue).Parent.Parent as JProperty).Name.ToString();
+            //System.Windows.MessageBox.Show(((CurrentCheckBox.DataContext as JValue).Parent.Parent as JProperty).Name.ToString());
+            if ((bool)CurrentCheckBox.IsChecked)
+            {
+                if (PropertiesSeacrh.Keys.Contains(property))
+                    PropertiesSeacrh[property].Add(value);
+                else
+                    PropertiesSeacrh.Add(property, new List<string> { value });
+            }
+            else
+            {
+                PropertiesSeacrh[property].Remove(value);
+                if (PropertiesSeacrh[property].Count == 0)
+                {
+                    PropertiesSeacrh.Remove(property);
+                }
+            }
+            
+            foreach (string keys in PropertiesSeacrh.Keys)
+            {
+                System.Diagnostics.Trace.WriteLine(keys);
+                foreach(string values in PropertiesSeacrh[keys])
+                {
+                    System.Diagnostics.Trace.WriteLine($"   {values}");
+                }
+            }
+            System.Diagnostics.Trace.WriteLine("");
+        }
+
+        #endregion
+
+        public void ResearhGoods()
+        {
+            List<Goods> result = Goods.ToList();
+            foreach(var key in PropertiesSeacrh.Keys)
+            {
+                List<Goods> search = Goods.ToList();
+                foreach(var val in PropertiesSeacrh[key])
+                {
+                    
+                }
             }
         }
     }
