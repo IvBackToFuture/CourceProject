@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,13 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
-        #region Список товаров
+        #region Список товаров для страницы
+
+        private List<Goods> GoodsForPage;
+
+        #endregion
+
+        #region Список товаров для отображения
 
         private ObservableCollection<Goods> _Goods;
         public ObservableCollection<Goods> Goods
@@ -69,24 +76,28 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         public GoodsOnCategoryPageViewModel()
         {
-            string SearchStr = _SearchStr ?? "";
+            string SearchStr = _SearchStr?.ToLower() ?? "";
             Category = ChoosenCategory;
             if (Category.catJson != null)
             {
-                Goods = new ObservableCollection<Goods>(OneStopStoreEntities.GetContext().Goods.Where(
-                    x => x.catNumber == Category.catNumber && x.goodsName.ToLower().Contains(SearchStr)));
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods.Where(
+                    x => x.catNumber == Category.catNumber && x.goodsName.ToLower().Contains(SearchStr)).ToList();
                 Json = (JObject)JsonConvert.DeserializeObject(Category.catJson);
             }
             else
             {
-                Goods = new ObservableCollection<Goods>(OneStopStoreEntities.GetContext().Goods.Where(
-                    x => x.goodsName.ToLower().Contains(SearchStr)));
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods.Where(
+                    x => x.goodsName.ToLower().Contains(SearchStr)).ToList();    
             }
+            Goods = new ObservableCollection<Goods>(GoodsForPage);
+            //Goods.ToList().ForEach(x => x.JSON = (JObject)JsonConvert.DeserializeObject(x.goodsJson));
+
             ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
         }
 
         #region Команда изменения словаря по CheckBox'ам
 
+        /// <summary>Команда изменения словаря по CheckBox'ам</summary>
         public ICommand ChangeSearchDictionaryCommand { get; }
         private bool CanChangeSearchDictionaryCommandExecute(object d) => true;
         private void OnChangeSearchDictionaryCommandExecuted(object d)
@@ -94,7 +105,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             CheckBox CurrentCheckBox = d as CheckBox;
             string value = (CurrentCheckBox.DataContext as JValue).ToString();
             string property = ((CurrentCheckBox.DataContext as JValue).Parent.Parent as JProperty).Name.ToString();
-            //System.Windows.MessageBox.Show(((CurrentCheckBox.DataContext as JValue).Parent.Parent as JProperty).Name.ToString());
             if ((bool)CurrentCheckBox.IsChecked)
             {
                 if (PropertiesSeacrh.Keys.Contains(property))
@@ -110,31 +120,33 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     PropertiesSeacrh.Remove(property);
                 }
             }
-            
-            foreach (string keys in PropertiesSeacrh.Keys)
-            {
-                System.Diagnostics.Trace.WriteLine(keys);
-                foreach(string values in PropertiesSeacrh[keys])
-                {
-                    System.Diagnostics.Trace.WriteLine($"   {values}");
-                }
-            }
-            System.Diagnostics.Trace.WriteLine("");
+            ResearhGoods();
         }
 
         #endregion
 
+        #region Метод обновления выводимого списка товаров
+
+        /// <summary>Метод обновления выводимого списка товаров</summary>
         public void ResearhGoods()
         {
-            List<Goods> result = Goods.ToList();
+            List<Goods> result = GoodsForPage.ToList();
             foreach(var key in PropertiesSeacrh.Keys)
             {
-                List<Goods> search = Goods.ToList();
-                foreach(var val in PropertiesSeacrh[key])
+                List<Goods> search = new List<Goods>();
+                foreach (var val in PropertiesSeacrh[key])
                 {
-                    
+                    List<Goods> search2 = GoodsForPage.Where(x => x.JSON[key].ToString() == val).ToList();
+                    if (search2.Count > 0)
+                        search.AddRange(search2);
                 }
+                result = (from r in result
+                join s in search.Distinct() on r.goodsNumber equals s.goodsNumber
+                select r).ToList();
             }
+            Goods = new ObservableCollection<Goods>(result);
         }
+
+        #endregion
     }
 }

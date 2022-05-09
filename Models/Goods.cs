@@ -30,7 +30,10 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public double goodsCost { get; set; }
         public byte[] goodsPicture { get; set; }
         public string goodsJson { get; set; }
-        public JObject JSON { get; set; }
+        public JObject JSON {
+            get => (JObject)JsonConvert.DeserializeObject(goodsJson);
+            set => goodsJson = JsonConvert.SerializeObject(value);
+        }
 
         public virtual Categories Categories { get; set; }
         public virtual Users Users { get; set; }
