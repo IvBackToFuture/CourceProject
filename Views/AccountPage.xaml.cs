@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CourceProjectMVVMAndEntityFramework.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AccoutInfoPage.xaml
+    /// Логика взаимодействия для AccountPage.xaml
     /// </summary>
-    public partial class AccoutInfoPage : Page
+    public partial class AccountPage : Page
     {
-        public AccoutInfoPage()
+        public AccountPage()
         {
             InitializeComponent();
         }

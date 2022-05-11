@@ -84,11 +84,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\AccoutInfoPageViewModel.cs" />
+    <Compile Include="ViewModels\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
-    <Compile Include="Views\AccoutInfoPage.xaml.cs">
-      <DependentUpon>AccoutInfoPage.xaml</DependentUpon>
+    <Compile Include="Views\AccountPage.xaml.cs">
+      <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AutorisationWindow.xaml.cs">
       <DependentUpon>AutorisationWindow.xaml</DependentUpon>
@@ -96,7 +96,7 @@
     <Compile Include="Views\ShoppingCartPage.xaml.cs">
       <DependentUpon>ShoppingCartPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AccoutInfoPage.xaml">
+    <Page Include="Views\AccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,7 +37,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanAutoRegWindowOpenCommandExecute(object d) => true;
         private void OnAutoRegWindowOpenCommandExecuted(object d)
         {
-            new AutorisationWindow().ShowDialog();
+            if (ApplicationSPECIAL._CurrentUserId == 0)
+                new AutorisationWindow().ShowDialog();
+            else
+                (d as Frame).Navigate(new AccountPage());
         }
 
         #endregion
