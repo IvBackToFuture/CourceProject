@@ -9,6 +9,8 @@
 
 namespace CourceProjectMVVMAndEntityFramework.Models
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     
@@ -23,6 +25,11 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public int catNumber { get; set; }
         public string catName { get; set; }
         public string catJson { get; set; }
+        public JObject JSON
+        {
+            get => (JObject)JsonConvert.DeserializeObject(catJson == null ? "" : catJson);
+            set => catJson = JsonConvert.SerializeObject(value);
+        }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Goods> Goods { get; set; }

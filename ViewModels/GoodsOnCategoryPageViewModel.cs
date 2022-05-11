@@ -17,9 +17,33 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
     class GoodsOnCategoryPageViewModel : BaseViewModel
     {
+        #region Минимальная и максимальная цены
+
+        /// <summary>Минимальная цена</summary>
+        private double _MinPrice;
+        /// <summary>Минимальная цена</summary>
+        public double MinPrice
+        {
+            get => _MinPrice;
+            set => Set(ref _MinPrice, value);
+        }
+
+        /// <summary>Максимальная цена</summary>
+        private double _MaxPrice;
+        /// <summary>Максимальная цена</summary>
+        public double MaxPrice
+        {
+            get => _MaxPrice;
+            set => Set(ref _MaxPrice, value);
+        }
+
+        #endregion
+
         #region Выбранная категория для View
 
+        /// <summary>Выбранная категория для View</summary>
         private Categories _Category;
+        /// <summary>Выбранная категория для View</summary>
         public Categories Category
         {
             get => _Category;
@@ -28,26 +52,18 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
-        #region Свойства категории для поиска
-
-        private JObject _Json;
-        public JObject Json
-        {
-            get => _Json;
-            set => Set(ref _Json, value);
-        }
-
-        #endregion
-
         #region Список товаров для страницы
 
+        /// <summary>Список товаров для страницы</summary>
         private List<Goods> GoodsForPage;
 
         #endregion
 
         #region Список товаров для отображения
 
+        /// <summary>Список товаров для отображения</summary>
         private ObservableCollection<Goods> _Goods;
+        /// <summary>Список товаров для отображения</summary>
         public ObservableCollection<Goods> Goods
         {
             get => _Goods;
@@ -58,39 +74,42 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Словарь для поиска по свойствам для JSON
 
+        /// <summary>Словарь для поиска по свойствам для JSON</summary>
         Dictionary<string, List<string>> PropertiesSeacrh = new Dictionary<string, List<string>>();
 
         #endregion
 
         #region Статическое своство для связки Выбора-демонстрации категории товаров
 
+        /// <summary>Статическое своство для связки Выбора-демонстрации категории товаров</summary>
         public static Categories ChoosenCategory { get; set; }
 
         #endregion
 
         #region Статическое свойство для связки поисковой строки и демонстрации товаров 
 
+        /// <summary>Статическое свойство для связки поисковой строки и демонстрации товаров</summary>
         public static string _SearchStr { get; set; }
 
         #endregion
 
         public GoodsOnCategoryPageViewModel()
         {
-            string SearchStr = _SearchStr?.ToLower() ?? "";
+            string SearchStr = _SearchStr?.ToLower() ?? "";     //Поисковая строка
             Category = ChoosenCategory;
+
             if (Category.catJson != null)
             {
-                GoodsForPage = OneStopStoreEntities.GetContext().Goods.Where(
-                    x => x.catNumber == Category.catNumber && x.goodsName.ToLower().Contains(SearchStr)).ToList();
-                Json = (JObject)JsonConvert.DeserializeObject(Category.catJson);
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods
+                    .Where(x => x.catNumber == Category.catNumber
+                    && x.goodsName.ToLower().Contains(SearchStr)).ToList();
             }
             else
             {
-                GoodsForPage = OneStopStoreEntities.GetContext().Goods.Where(
-                    x => x.goodsName.ToLower().Contains(SearchStr)).ToList();    
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods
+                    .Where(x => x.goodsName.ToLower().Contains(SearchStr)).ToList();
             }
             Goods = new ObservableCollection<Goods>(GoodsForPage);
-            //Goods.ToList().ForEach(x => x.JSON = (JObject)JsonConvert.DeserializeObject(x.goodsJson));
 
             ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
         }

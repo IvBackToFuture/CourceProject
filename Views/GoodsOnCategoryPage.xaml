@@ -33,19 +33,19 @@
                             </Style>
                         </DockPanel.Resources>
                         <TreeView DockPanel.Dock="Top">
-                            <TreeViewItem>
+                            <TreeViewItem >
                                 <TreeViewItem.Header>
                                     <TextBlock Text="Цена"/>
                                 </TreeViewItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="От:"/>
-                                    <TextBox Width="50"/>
+                                    <TextBox  Text="{Binding MinPrice, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
                                     <TextBlock Text="до:"/>
-                                    <TextBox Width="50"/>
+                                    <TextBox Text="{Binding MaxPrice, UpdateSourceTrigger=PropertyChanged}" MaxLength="10" Width="50"/>
                                 </StackPanel>
                             </TreeViewItem>
                         </TreeView>
-                        <TreeView ItemsSource="{Binding Json}">
+                        <TreeView ItemsSource="{Binding Category.JSON}">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
                                     <TextBlock Text="{Binding Path=Name}"/>
