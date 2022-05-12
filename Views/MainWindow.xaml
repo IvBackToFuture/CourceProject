@@ -61,7 +61,7 @@
                      md:HintAssist.Hint="Искать" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      VerticalContentAlignment="Center"/>
             <Button Grid.Column="3" Margin="0,5,0,5" Height="Auto"
-                    Command="{Binding FindOnNameCommand}">
+                    Command="{Binding FindOnNameCommand}" CommandParameter="{Binding ElementName=MainFrame}">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Solid_Search"/>
@@ -89,7 +89,7 @@
         </Grid>
         <Frame x:Name="MainFrame" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Row="1">
             <Frame.DataContext>
-                <ct:ApplicationSPECIAL/>
+                <cat:ApplicationSPECIAL/>
             </Frame.DataContext>
         </Frame>
     </Grid>

@@ -40,7 +40,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             if (ApplicationSPECIAL._CurrentUserId == 0)
                 new AutorisationWindow().ShowDialog();
             else
-                (d as Frame).Navigate(new AccountPage());
+            {
+                //MessageBox.Show((d as Frame).Content.GetType().ToString());
+                if ((d as Frame).Content.GetType() != typeof(AccountPage))
+                    (d as Frame).Navigate(new AccountPage());
+            }
         }
 
         #endregion
@@ -56,7 +60,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             {
                 GoodsOnCategoryPageViewModel.ChoosenCategory = ChoosenCategory;
                 GoodsOnCategoryPageViewModel._SearchStr = SearchString;
-                ApplicationSPECIAL.GetApp().CurrentPage = new GoodsOnCategoryPage();
+                if ((d as Frame).Content.GetType() != typeof(GoodsOnCategoryPage))
+                    (d as Frame).Navigate(new GoodsOnCategoryPage());
+                else
+                    (((d as Frame).Content as GoodsOnCategoryPage).DataContext as GoodsOnCategoryPageViewModel).DoResearch();
+
+                //ApplicationSPECIAL.GetApp().CurrentPage = new GoodsOnCategoryPage();
             }
         }
 

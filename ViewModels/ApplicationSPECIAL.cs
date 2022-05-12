@@ -26,6 +26,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Номер текущего пользователя из бд
 
+        /// <summary>Номер текущего пользователя из бд</summary>
         public static int _CurrentUserId { get; set; } = 0;
 
         #endregion
@@ -45,6 +46,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         #endregion
 
         #region Поле и метод для получения объекта данного класса
+
         /// <summary>Поле для получения объекта данного класса</summary>
         private static ApplicationSPECIAL SPECIAL;
         /// <summary>Метод для получения объекта данного класса</summary>

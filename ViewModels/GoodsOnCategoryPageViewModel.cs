@@ -114,6 +114,29 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
         }
 
+        #region Метод повторного поиска
+
+        public void DoResearch()
+        {
+            string SearchStr = _SearchStr?.ToLower() ?? "";     //Поисковая строка
+            Category = ChoosenCategory;
+
+            if (Category.catJson != null)
+            {
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods
+                    .Where(x => x.catNumber == Category.catNumber
+                    && x.goodsName.ToLower().Contains(SearchStr)).ToList();
+            }
+            else
+            {
+                GoodsForPage = OneStopStoreEntities.GetContext().Goods
+                    .Where(x => x.goodsName.ToLower().Contains(SearchStr)).ToList();
+            }
+            Goods = new ObservableCollection<Goods>(GoodsForPage);
+        }
+
+        #endregion
+
         #region Команда изменения словаря по CheckBox'ам
 
         /// <summary>Команда изменения словаря по CheckBox'ам</summary>
