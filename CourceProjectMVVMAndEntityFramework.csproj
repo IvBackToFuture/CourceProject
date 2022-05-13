@@ -88,13 +88,21 @@
       <DependentUpon>OneStopStore.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountPageViewModel.cs" />
+    <Compile Include="ViewModels\AddNewGoodsPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
+    <Compile Include="ViewModels\ChoosingCharacteristicsForGoodsWindowViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
     <Compile Include="Views\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddNewGoodsPage.xaml.cs">
+      <DependentUpon>AddNewGoodsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AutorisationWindow.xaml.cs">
       <DependentUpon>AutorisationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChoosingCharacteristicsForGoodsWindow.xaml.cs">
+      <DependentUpon>ChoosingCharacteristicsForGoodsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShoppingCartPage.xaml.cs">
       <DependentUpon>ShoppingCartPage.xaml</DependentUpon>
@@ -103,11 +111,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddNewGoodsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AutorisationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChooseCategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChoosingCharacteristicsForGoodsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

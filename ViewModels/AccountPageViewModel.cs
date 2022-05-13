@@ -25,6 +25,17 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Команда добавления нового товара
+
+        public ICommand CreateNewGoodsCommand { get; }
+        private bool CanCreateNewGoodsCommandExecute(object d) => true;
+        private void OnCreateNewGoodsCommandExecuted(object d)
+        {
+            (d as AccountPage).NavigationService.Navigate(new AddNewGoodsPage());
+        }
+
+        #endregion
+
         #region Команда отката заказа
 
         public ICommand BreakOrder { get; }
@@ -74,6 +85,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted, CanSaveChangesCommandExecute);
             ExitAccountCommand = new LambdaCommand(OnExitAccountCommandExecuted, CanExitAccountCommandExecute);
             BreakOrder = new LambdaCommand(OnBreakOrderExecuted, CanBreakOrderExecute);
+            CreateNewGoodsCommand = new LambdaCommand(OnCreateNewGoodsCommandExecuted, CanCreateNewGoodsCommandExecute);
         }
     }
 }

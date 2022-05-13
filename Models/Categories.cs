@@ -31,6 +31,12 @@ namespace CourceProjectMVVMAndEntityFramework.Models
             set => catJson = JsonConvert.SerializeObject(value);
         }
 
+        public override string ToString()
+        {
+            return this.catName;
+        }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Goods> Goods { get; set; }
     }
