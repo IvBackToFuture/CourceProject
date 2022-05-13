@@ -1,4 +1,5 @@
-﻿using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
+﻿using CourceProjectMVVMAndEntityFramework.Models;
+using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
 using System;
 using System.Collections.Generic;
@@ -37,13 +38,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             SPECIAL = this;                         //Объект класса запишется в статическое поле,
                                                     //для возможности дальшейшего изменения выводимой страницы
         }
-
-        #region Корзина для покупок
-
-        /// <summary>Корзина для покупок. Ключ - номер товара. Значение - кол-во</summary>
-        public static Dictionary<int, int> ShoppingCart = new Dictionary<int, int>();
-
-        #endregion
 
         #region Поле и метод для получения объекта данного класса
 

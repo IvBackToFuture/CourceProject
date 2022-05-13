@@ -24,9 +24,11 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public System.DateTime orderDate { get; set; }
         public int buyerNumber { get; set; }
         public int orderStatus { get; set; }
+        public int pointOfIssueNumber { get; set; }
     
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders_Goods> Orders_Goods { get; set; }
+        public virtual PointOfIssue PointOfIssue { get; set; }
     }
 }

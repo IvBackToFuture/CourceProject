@@ -5,12 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище OneStopStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Administrators">
-          <Key>
-            <PropertyRef Name="adminNumber" />
-          </Key>
-          <Property Name="adminNumber" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="catNumber" />
@@ -40,6 +34,7 @@
           <Property Name="orderDate" Type="date" Nullable="false" />
           <Property Name="buyerNumber" Type="int" Nullable="false" />
           <Property Name="orderStatus" Type="int" Nullable="false" />
+          <Property Name="pointOfIssueNumber" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders_Goods">
           <Key>
@@ -50,33 +45,33 @@
           <Property Name="orderNumber" Type="int" Nullable="false" />
           <Property Name="goodsCount" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PointOfIssue">
+          <Key>
+            <PropertyRef Name="pointNumber" />
+          </Key>
+          <Property Name="pointNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pointLocation" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="pointOwnerSurname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="pointOwnerFirstname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="pointOwnerSecondname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="pointLogin" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="pointPassword" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="userNumber" />
           </Key>
           <Property Name="userNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userSurname" Type="nvarchar" MaxLength="50" />
-          <Property Name="userFirstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="userSurname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userFirstname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="userSecondname" Type="nvarchar" MaxLength="50" />
           <Property Name="userPhone" Type="varchar" MaxLength="11" />
-          <Property Name="userMail" Type="varchar" MaxLength="100" />
+          <Property Name="userMail" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="userLocation" Type="nvarchar" MaxLength="200" />
           <Property Name="userRegistrationDate" Type="date" Nullable="false" />
           <Property Name="userLogin" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="userPassword" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <Association Name="fk_administrators_users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Administrators" Type="Self.Administrators" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="userNumber" />
-            </Principal>
-            <Dependent Role="Administrators">
-              <PropertyRef Name="adminNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_goods_categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
@@ -98,6 +93,18 @@
             </Principal>
             <Dependent Role="Goods">
               <PropertyRef Name="userNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_pointIssue">
+          <End Role="PointOfIssue" Type="Self.PointOfIssue" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PointOfIssue">
+              <PropertyRef Name="pointNumber" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="pointOfIssueNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -138,16 +145,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище OneStopStoreModelContainer">
-          <EntitySet Name="Administrators" EntityType="Self.Administrators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders_Goods" EntityType="Self.Orders_Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PointOfIssue" EntityType="Self.PointOfIssue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk_administrators_users" Association="Self.fk_administrators_users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Administrators" EntitySet="Administrators" />
-          </AssociationSet>
           <AssociationSet Name="fk_goods_categories" Association="Self.fk_goods_categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Goods" EntitySet="Goods" />
@@ -155,6 +158,10 @@
           <AssociationSet Name="fk_goods_users" Association="Self.fk_goods_users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_pointIssue" Association="Self.fk_orders_pointIssue">
+            <End Role="PointOfIssue" EntitySet="PointOfIssue" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="fk_orders_users" Association="Self.fk_orders_users">
             <End Role="Users" EntitySet="Users" />
@@ -173,13 +180,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OneStopStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Administrators">
-          <Key>
-            <PropertyRef Name="adminNumber" />
-          </Key>
-          <Property Name="adminNumber" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.fk_administrators_users" FromRole="Administrators" ToRole="Users" />
-        </EntityType>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="catNumber" />
@@ -215,6 +215,8 @@
           <Property Name="orderStatus" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.fk_orders_users" FromRole="Orders" ToRole="Users" />
           <NavigationProperty Name="Orders_Goods" Relationship="Self.fk_ordgoods_orders" FromRole="Orders" ToRole="Orders_Goods" />
+          <Property Name="pointOfIssueNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PointOfIssue" Relationship="OneStopStoreModel.fk_orders_pointIssue" FromRole="Orders" ToRole="PointOfIssue" />
         </EntityType>
         <EntityType Name="Orders_Goods">
           <Key>
@@ -232,31 +234,18 @@
             <PropertyRef Name="userNumber" />
           </Key>
           <Property Name="userNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="userFirstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userFirstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="userSecondname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="userMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="userMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="userRegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="userLogin" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userPassword" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Administrators" Relationship="Self.fk_administrators_users" FromRole="Users" ToRole="Administrators" />
           <NavigationProperty Name="Goods" Relationship="Self.fk_goods_users" FromRole="Users" ToRole="Goods" />
           <NavigationProperty Name="Orders" Relationship="Self.fk_orders_users" FromRole="Users" ToRole="Orders" />
         </EntityType>
-        <Association Name="fk_administrators_users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Administrators" Type="Self.Administrators" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="userNumber" />
-            </Principal>
-            <Dependent Role="Administrators">
-              <PropertyRef Name="adminNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_goods_categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
@@ -318,16 +307,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OneStopStoreEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Administrators" EntityType="Self.Administrators" />
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="Goods" EntityType="Self.Goods" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Orders_Goods" EntityType="Self.Orders_Goods" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="fk_administrators_users" Association="Self.fk_administrators_users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Administrators" EntitySet="Administrators" />
-          </AssociationSet>
           <AssociationSet Name="fk_goods_categories" Association="Self.fk_goods_categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Goods" EntitySet="Goods" />
@@ -348,20 +332,43 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Orders_Goods" EntitySet="Orders_Goods" />
           </AssociationSet>
+          <EntitySet Name="PointOfIssue" EntityType="OneStopStoreModel.PointOfIssue" />
+          <AssociationSet Name="fk_orders_pointIssue" Association="OneStopStoreModel.fk_orders_pointIssue">
+            <End Role="PointOfIssue" EntitySet="PointOfIssue" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PointOfIssue">
+          <Key>
+            <PropertyRef Name="pointNumber" />
+          </Key>
+          <Property Name="pointNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pointLocation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pointOwnerSurname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pointOwnerFirstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pointOwnerSecondname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pointLogin" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pointPassword" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="OneStopStoreModel.fk_orders_pointIssue" FromRole="PointOfIssue" ToRole="Orders" />
+        </EntityType>
+        <Association Name="fk_orders_pointIssue">
+          <End Type="OneStopStoreModel.PointOfIssue" Role="PointOfIssue" Multiplicity="1" />
+          <End Type="OneStopStoreModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PointOfIssue">
+              <PropertyRef Name="pointNumber" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="pointOfIssueNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище OneStopStoreModelContainer" CdmEntityContainer="OneStopStoreEntities">
-          <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="OneStopStoreModel.Administrators">
-              <MappingFragment StoreEntitySet="Administrators">
-                <ScalarProperty Name="adminNumber" ColumnName="adminNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="OneStopStoreModel.Categories">
               <MappingFragment StoreEntitySet="Categories">
@@ -388,6 +395,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OneStopStoreModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="pointOfIssueNumber" ColumnName="pointOfIssueNumber" />
                 <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
                 <ScalarProperty Name="orderDate" ColumnName="orderDate" />
                 <ScalarProperty Name="buyerNumber" ColumnName="buyerNumber" />
@@ -417,6 +425,19 @@
                 <ScalarProperty Name="userRegistrationDate" ColumnName="userRegistrationDate" />
                 <ScalarProperty Name="userLogin" ColumnName="userLogin" />
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PointOfIssue">
+            <EntityTypeMapping TypeName="OneStopStoreModel.PointOfIssue">
+              <MappingFragment StoreEntitySet="PointOfIssue">
+                <ScalarProperty Name="pointPassword" ColumnName="pointPassword" />
+                <ScalarProperty Name="pointLogin" ColumnName="pointLogin" />
+                <ScalarProperty Name="pointOwnerSecondname" ColumnName="pointOwnerSecondname" />
+                <ScalarProperty Name="pointOwnerFirstname" ColumnName="pointOwnerFirstname" />
+                <ScalarProperty Name="pointOwnerSurname" ColumnName="pointOwnerSurname" />
+                <ScalarProperty Name="pointLocation" ColumnName="pointLocation" />
+                <ScalarProperty Name="pointNumber" ColumnName="pointNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

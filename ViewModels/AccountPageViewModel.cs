@@ -25,6 +25,26 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Команда отката заказа
+
+        public ICommand BreakOrder { get; }
+        private bool CanBreakOrderExecute(object d) => (d as Orders)?.orderStatus == 0;
+        private void OnBreakOrderExecuted(object d)
+        {
+            Orders order = d as Orders;
+            foreach(Orders_Goods og in order.Orders_Goods)
+            {
+                og.Goods.goodsCount += og.goodsCount;
+                og.Goods.InShoppingCart = false;
+            }
+            OneStopStoreEntities.GetContext().Orders.Remove(order);
+            OneStopStoreEntities.GetContext().SaveChanges();
+            CurrentUser = null;
+            CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);
+        }
+
+        #endregion
+
         #region Команда сохранения изменений
 
         public ICommand SaveChangesCommand { get; }
@@ -53,6 +73,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted, CanSaveChangesCommandExecute);
             ExitAccountCommand = new LambdaCommand(OnExitAccountCommandExecuted, CanExitAccountCommandExecute);
+            BreakOrder = new LambdaCommand(OnBreakOrderExecuted, CanBreakOrderExecute);
         }
     }
 }

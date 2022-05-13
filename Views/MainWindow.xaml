@@ -69,7 +69,8 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="4" Margin="5,5,0,5" Height="Auto">
+            <Button Grid.Column="4" Margin="5,5,0,5" Command="{Binding OpenShoppingCartCommand}"
+                    CommandParameter="{Binding ElementName=MainFrame}" Height="Auto">
                 <Button.Content>
                     <StackPanel>
                         <icon:ImageAwesome Icon="Solid_ShoppingCart"/>

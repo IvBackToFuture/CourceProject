@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\PointOfIssue.cs">
+      <DependentUpon>OneStopStore.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
@@ -143,9 +146,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Administrators.cs">
-      <DependentUpon>OneStopStore.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Categories.cs">
       <DependentUpon>OneStopStore.tt</DependentUpon>
     </Compile>

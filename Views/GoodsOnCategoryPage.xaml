@@ -13,89 +13,85 @@
         <dc:GoodsOnCategoryPageViewModel/>
     </Page.DataContext>
     <Grid>
-        <GroupBox Header="Товары">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <GroupBox Header="Фильтр">
-                    <DockPanel>
-                        <DockPanel.Resources>
-                            <Style TargetType="TreeViewItem">
-                                <Setter Property="IsExpanded" Value="True"/>
-                            </Style>
-                            <Style TargetType="TreeView">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Style>
-                        </DockPanel.Resources>
-                        <TreeView DockPanel.Dock="Top">
-                            <TreeViewItem >
-                                <TreeViewItem.Header>
-                                    <TextBlock Text="Цена"/>
-                                </TreeViewItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="От:"/>
-                                    <TextBox  Text="{Binding MinPrice, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-                                    <TextBlock Text="до:"/>
-                                    <TextBox Text="{Binding MaxPrice, UpdateSourceTrigger=PropertyChanged}" MaxLength="10" Width="50"/>
-                                </StackPanel>
-                            </TreeViewItem>
-                        </TreeView>
-                        <TreeView ItemsSource="{Binding Category.JSON}">
-                            <TreeView.Resources>
-                                <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
-                                    <TextBlock Text="{Binding Path=Name}"/>
-                                </HierarchicalDataTemplate>
-                                <DataTemplate DataType="{x:Type tree:JValue}">
-                                    <CheckBox x:Name="cb" Content="{Binding Path=Value}"
-                                                  Command="{Binding DataContext.ChangeSearchDictionaryCommand, ElementName=Main}"
-                                                  CommandParameter="{Binding ElementName=cb}"/>
-                                </DataTemplate>
-                            </TreeView.Resources>
-                        </TreeView>
-                    </DockPanel>
-                </GroupBox>
-                <GroupBox Grid.Column="1" Header="Товары">
-                    <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Goods}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="5" BorderThickness="2" BorderBrush="Black">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" HorizontalAlignment="Left" CornerRadius="13" Margin="2" BorderThickness="1" BorderBrush="Black" Width="200" Height="200">
-                                                <Image Source="{Binding goodsPicture}"/>
-                                            </Border>
-                                            <StackPanel Grid.Column="1" Margin="50,50,0,0">
-                                                <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsName}"/>
-                                                <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost}"/>
-                                            </StackPanel>
-                                            <Button Grid.Column="2" Width="220" Height="80">
-                                                <Button.Content>
-                                                    <TextBlock Text="Добавить в корзину" FontSize="20"/>
-                                                </Button.Content>
-                                            </Button>
-                                        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Фильтр">
+            <DockPanel>
+                <DockPanel.Resources>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True"/>
+                    </Style>
+                    <Style TargetType="TreeView">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Style>
+                </DockPanel.Resources>
+                <TreeView DockPanel.Dock="Top">
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <TextBlock Text="Цена"/>
+                        </TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="От:"/>
+                            <TextBox  Text="{Binding MinPrice, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                            <TextBlock Text="до:"/>
+                            <TextBox Text="{Binding MaxPrice, UpdateSourceTrigger=PropertyChanged}" MaxLength="10" Width="50"/>
+                        </StackPanel>
+                    </TreeViewItem>
+                </TreeView>
+                <TreeView ItemsSource="{Binding Category.JSON}">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type tree:JProperty}" ItemsSource="{Binding Path=Value}">
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type tree:JValue}">
+                            <CheckBox x:Name="cb" Content="{Binding Path=Value}" Cursor="Hand"
+                                                Command="{Binding DataContext.ChangeSearchDictionaryCommand, ElementName=Main}"
+                                                CommandParameter="{Binding ElementName=cb}"/>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Товары">
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Goods}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="5" BorderThickness="2" BorderBrush="Black">
+                                <Grid x:Name="goodsObj">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" HorizontalAlignment="Left" CornerRadius="13" Margin="2" BorderThickness="1" BorderBrush="Black" Width="200" Height="200">
+                                        <Image Source="{Binding goodsPicture}"/>
                                     </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </GroupBox>
-            </Grid>
+                                    <StackPanel Grid.Column="1" Margin="50,50,0,0">
+                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsName}"/>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost}"/>
+                                    </StackPanel>
+                                    <Button Grid.Column="2" Width="220" Height="80" Command="{Binding Path=DataContext.AddToShoppingCart, ElementName=Main}"
+                                                    CommandParameter="{Binding Path=DataContext, ElementName=goodsObj}" Content="Добавить в корзину" FontSize="20"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
         </GroupBox>
     </Grid>
 </Page>

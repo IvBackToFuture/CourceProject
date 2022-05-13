@@ -32,7 +32,6 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public string userLogin { get; set; }
         public string userPassword { get; set; }
     
-        public virtual Administrators Administrators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Goods> Goods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

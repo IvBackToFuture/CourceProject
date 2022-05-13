@@ -14,7 +14,7 @@
         <dc:AccountPageViewModel/>
     </Page.DataContext>
     <Grid Background="white">
-        <TabControl TabStripPlacement="Left" SelectedIndex="1">
+        <TabControl TabStripPlacement="Left" SelectedIndex="1" Style="{StaticResource MaterialDesignFilledTabControl}">
             <TabItem Width="130" Height="90" IsHitTestVisible="False">
                 <TabItem.Header>
                     <icon:ImageAwesome Icon="Regular_Smile" Foreground="White" Width="55" Height="55"/>
@@ -69,7 +69,28 @@
                           xmlns:data="clr-namespace:CourceProjectMVVMAndEntityFramework.Models">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type data:Orders}" ItemsSource="{Binding Path=Orders_Goods}">
-                            <TextBlock Text="{Binding Path=orderNumber, StringFormat='Заказ №{0:000000}.'}"/>
+                            <StackPanel>
+                                <UniformGrid Columns="3" x:Name="Data">
+                                    <TextBlock Text="{Binding Path=orderNumber, StringFormat='Заказ №{0:000000}.'}"/>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext.orderStatus, ElementName=Data}" Value="0">
+                                                        <Setter Property="TextBlock.Text" Value="Заказ в пути"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding DataContext.orderStatus, ElementName=Data}" Value="1">
+                                                        <Setter Property="TextBlock.Text" Value="Заказ доставлен"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <Button Command="{Binding DataContext.BreakOrder, ElementName=Page}" Content="Отменить заказ" HorizontalAlignment="Center"
+                                        CommandParameter="{Binding DataContext, ElementName=Data}" Background="Red" Foreground="White"/>
+                                </UniformGrid>
+                                <TextBlock Text="{Binding Path=PointOfIssue.pointLocation, StringFormat='Место доставки: {0}'}"/>
+                            </StackPanel>
                         </HierarchicalDataTemplate>
                         <DataTemplate DataType="{x:Type data:Orders_Goods}">
                             <StackPanel Orientation="Horizontal">

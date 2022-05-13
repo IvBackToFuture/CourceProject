@@ -4,46 +4,71 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
-      mc:Ignorable="d" 
+      xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+      xmlns:icon="http://schemas.fontawesome.com/icons/"
+      mc:Ignorable="d" x:Name="Main"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShoppingCartPage">
-
+    <Page.DataContext>
+        <dc:ShoppingCartPageViewModel/>
+    </Page.DataContext>
     <Grid Background="White">
         <GroupBox Header="Корзина">
-            <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding Goods}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="5" BorderThickness="2" BorderBrush="Black">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" HorizontalAlignment="Left" CornerRadius="13" Margin="2" BorderThickness="1" BorderBrush="Black" Width="200" Height="200">
-                                        <Image Source="{Binding goodsPicture}"/>
-                                    </Border>
-                                    <StackPanel Grid.Column="1" Margin="50,50,0,0">
-                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsName}"/>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost}"/>
-                                    </StackPanel>
-                                    <Button Grid.Column="2" Width="220" Height="80">
-                                        <Button.Content>
-                                            <TextBlock Text="Добавить в корзину" FontSize="20"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Command="{Binding CreateOrder}" Content="Оплатить" Height="30"/>
+                    <UniformGrid Margin="0,5,0,0" Rows="1">
+                        <TextBlock Text="Выберите пункт доставки товара:" FontSize="15"/>
+                        <ComboBox ItemsSource="{Binding Points}" SelectedItem="{Binding ChoosenPoint}" 
+                                  SelectedIndex="0" FontSize="15"/>
+                    </UniformGrid>
+                    <TextBlock Text="{Binding Message}" Margin="5"/>
+                </StackPanel>
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding Path=Goods}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5" BorderThickness="2" BorderBrush="Black">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" HorizontalAlignment="Left" CornerRadius="13" Margin="2" BorderThickness="1" BorderBrush="Black" Width="200" Height="200">
+                                            <Image Source="{Binding Path=goodsPicture}"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="50,50,0,0">
+                                            <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding Path=goodsName}"/>
+                                            <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding Path=goodsCost}"/>
+                                            <TextBlock FontSize="20" Text="Кол-во товара:"/>
+                                            <UniformGrid Rows="1" Width="200" x:Name="Data" Margin="10,10,10,5">
+                                                <Button Command="{Binding Path=DataContext.RemoveCountGoodsInShoppingCart, ElementName=Main}"
+                                                    CommandParameter="{Binding Path=DataContext,ElementName=Data}">
+                                                    <icon:ImageAwesome Icon="Solid_Minus" Width="25"/>
+                                                </Button>
+                                                <TextBlock FontSize="20" Margin="10,0,10,0" HorizontalAlignment="Center" Text="{Binding Path=CountInShoppingCart, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <Button Command="{Binding Path=DataContext.AddCountGoodsInShoppingCart, ElementName=Main}"
+                                                    CommandParameter="{Binding Path=DataContext, ElementName=Data}">
+                                                    <icon:ImageAwesome Icon="Solid_Plus" Width="25"/>
+                                                </Button>
+                                            </UniformGrid>
+                                            <Button Command="{Binding Path=DataContext.DeleteGoodsFromShoppingCart, ElementName=Main}"
+                                                CommandParameter="{Binding Path=DataContext, ElementName=Data}" Content="Удалить из корзины"
+                                                Width="200" Margin="10,5,10,10" Background="Red" Foreground="White"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
         </GroupBox>
     </Grid>
 </Page>

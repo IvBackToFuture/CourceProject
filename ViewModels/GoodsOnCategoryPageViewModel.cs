@@ -112,6 +112,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             Goods = new ObservableCollection<Goods>(GoodsForPage);
 
             ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
+            AddToShoppingCart = new LambdaCommand(OnAddToShoppingCartExecuted, CanAddToShoppingCartExecute);
         }
 
         #region Метод повторного поиска
@@ -133,6 +134,18 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     .Where(x => x.goodsName.ToLower().Contains(SearchStr)).ToList();
             }
             Goods = new ObservableCollection<Goods>(GoodsForPage);
+        }
+
+        #endregion
+
+        #region
+
+        public ICommand AddToShoppingCart { get; }
+        private bool CanAddToShoppingCartExecute(object d) => (d is null) ? false : !(d as Goods).InShoppingCart;
+        private void OnAddToShoppingCartExecuted(object d)
+        {
+            (d as Goods).InShoppingCart = true;
+            (d as Goods).CountInShoppingCart += 1;
         }
 
         #endregion

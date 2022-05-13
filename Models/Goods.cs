@@ -13,15 +13,19 @@ namespace CourceProjectMVVMAndEntityFramework.Models
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Goods
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+
+    public partial class Goods : INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Goods()
         {
             this.Orders_Goods = new HashSet<Orders_Goods>();
+            InShoppingCart = false;
+            CountInShoppingCart = 0;
         }
-    
+
         public int goodsNumber { get; set; }
         public int userNumber { get; set; }
         public int catNumber { get; set; }
@@ -30,10 +34,53 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         public double goodsCost { get; set; }
         public byte[] goodsPicture { get; set; }
         public string goodsJson { get; set; }
-        public JObject JSON {
+
+        public JObject JSON
+        {
             get => (JObject)JsonConvert.DeserializeObject(goodsJson);
             set => goodsJson = JsonConvert.SerializeObject(value);
         }
+        private bool _InShoppingCart;
+        public bool InShoppingCart
+        {
+            get => _InShoppingCart;
+            set
+            {
+                if (value == false)
+                    CountInShoppingCart = 0;
+                Set(ref _InShoppingCart, value);
+            }
+        }
+
+        #region Реализация INotify
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        {
+            if (Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(PropertyName);
+            return true;
+        }
+
+        #endregion
+
+        private int _CountInShoppingCart;
+        public int CountInShoppingCart
+        {
+            get => _CountInShoppingCart;
+            set
+            {
+                if (value <= goodsCount && value >= 0)
+                    Set(ref _CountInShoppingCart, value);
+            }
+        }
+
 
         public virtual Categories Categories { get; set; }
         public virtual Users Users { get; set; }

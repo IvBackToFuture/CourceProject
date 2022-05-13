@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="560a30602fcd4257a75b3a5b30cb840e" Name="Diagram1">
-        <EntityTypeShape EntityType="OneStopStoreModel.Administrators" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+      <Diagram DiagramId="560a30602fcd4257a75b3a5b30cb840e" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="OneStopStoreModel.Categories" Width="1.5" PointX="3.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OneStopStoreModel.Goods" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OneStopStoreModel.Orders" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="OneStopStoreModel.Orders_Goods" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OneStopStoreModel.Users" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <AssociationConnector Association="OneStopStoreModel.fk_administrators_users" ManuallyRouted="false" />
         <AssociationConnector Association="OneStopStoreModel.fk_goods_categories" ManuallyRouted="false" />
         <AssociationConnector Association="OneStopStoreModel.fk_goods_users" ManuallyRouted="false" />
         <AssociationConnector Association="OneStopStoreModel.fk_ordgoods_goods" ManuallyRouted="false" />
         <AssociationConnector Association="OneStopStoreModel.fk_orders_users" ManuallyRouted="false" />
         <AssociationConnector Association="OneStopStoreModel.fk_ordgoods_orders" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OneStopStoreModel.PointOfIssue" Width="1.5" PointX="8.375" PointY="1" />
+        <AssociationConnector Association="OneStopStoreModel.fk_orders_pointIssue" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

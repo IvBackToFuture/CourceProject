@@ -41,10 +41,22 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 new AutorisationWindow().ShowDialog();
             else
             {
-                //MessageBox.Show((d as Frame).Content.GetType().ToString());
                 if ((d as Frame).Content.GetType() != typeof(AccountPage))
                     (d as Frame).Navigate(new AccountPage());
             }
+        }
+
+        #endregion
+
+        #region Команда перехода к окну корзины пользователя
+
+        /// <summary>Команда перехода к окну корзины пользователя</summary>
+        public ICommand OpenShoppingCartCommand { get; }
+        private bool CanOpenShoppingCartCommandExecute(object d) => true;
+        private void OnOpenShoppingCartCommandExecuted(object d)
+        {
+            if ((d as Frame).Content.GetType() != typeof(ShoppingCartPage))
+                (d as Frame).Navigate(new ShoppingCartPage());
         }
 
         #endregion
@@ -64,6 +76,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     (d as Frame).Navigate(new GoodsOnCategoryPage());
                 else
                     (((d as Frame).Content as GoodsOnCategoryPage).DataContext as GoodsOnCategoryPageViewModel).DoResearch();
+                //Refresh()
 
                 //ApplicationSPECIAL.GetApp().CurrentPage = new GoodsOnCategoryPage();
             }
@@ -113,6 +126,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
             FindOnNameCommand = new LambdaCommand(OnFindOnNameCommandExecuted, CanFindOnNameCommandExecute);
             AutoRegWindowOpenCommand = new LambdaCommand(OnAutoRegWindowOpenCommandExecuted, CanAutoRegWindowOpenCommandExecute);
+            OpenShoppingCartCommand = new LambdaCommand(OnOpenShoppingCartCommandExecuted, CanOpenShoppingCartCommandExecute);
 
             #endregion
 

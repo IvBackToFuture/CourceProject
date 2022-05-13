@@ -9,29 +9,31 @@
 
 namespace CourceProjectMVVMAndEntityFramework.Models
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     
-    public partial class Categories
+    public partial class PointOfIssue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categories()
+        public PointOfIssue()
         {
-            this.Goods = new HashSet<Goods>();
-        }
-    
-        public int catNumber { get; set; }
-        public string catName { get; set; }
-        public string catJson { get; set; }
-        public JObject JSON
-        {
-            get => (JObject)JsonConvert.DeserializeObject(catJson == null ? "" : catJson);
-            set => catJson = JsonConvert.SerializeObject(value);
+            this.Orders = new HashSet<Orders>();
         }
 
+        public override string ToString()
+        {
+            return this.pointLocation;
+        }
+
+        public int pointNumber { get; set; }
+        public string pointLocation { get; set; }
+        public string pointOwnerSurname { get; set; }
+        public string pointOwnerFirstname { get; set; }
+        public string pointOwnerSecondname { get; set; }
+        public string pointLogin { get; set; }
+        public string pointPassword { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Goods> Goods { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

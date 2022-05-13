@@ -16,7 +16,8 @@ namespace CourceProjectMVVMAndEntityFramework.Models
     public partial class OneStopStoreEntities : DbContext
     {
         private static OneStopStoreEntities _Context;
-        public static OneStopStoreEntities GetContext() {
+        public static OneStopStoreEntities GetContext()
+        {
             if (_Context == null)
                 _Context = new OneStopStoreEntities();
             return _Context;
@@ -32,11 +33,11 @@ namespace CourceProjectMVVMAndEntityFramework.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Administrators> Administrators { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Goods> Goods { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Orders_Goods> Orders_Goods { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<PointOfIssue> PointOfIssue { get; set; }
     }
 }
