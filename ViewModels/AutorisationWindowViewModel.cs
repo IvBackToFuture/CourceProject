@@ -17,7 +17,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Логин авторизации
 
+        /// <summary>Логин авторизации</summary>
         private string _ALogin;
+        /// <summary>Логин авторизации</summary>
         public string ALogin
         {
             get => _ALogin;
@@ -28,7 +30,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Пароль авторизации
 
+        /// <summary>Пароль авторизации</summary>
         private string _APassword;
+        /// <summary>Пароль авторизации</summary>
         public string APassword
         {
             get => _APassword;
@@ -39,7 +43,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение об ошибках
 
+        /// <summary>Сообщение об ошибках</summary>
         private string _AErrorMessage;
+        /// <summary>Сообщение об ошибках</summary>
         public string AErrorMessage
         {
             get => _AErrorMessage;
@@ -53,8 +59,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         #region Регистрация
 
         #region Логин регистрации
-
+        
+        /// <summary>Логин регистрации</summary>
         private string _RLogin;
+        /// <summary>Логин регистрации</summary>
         public string RLogin
         {
             get => _RLogin;
@@ -62,10 +70,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         }
 
         #endregion
-      
+
         #region Первый пароль регистрации
 
+        /// <summary>Первый пароль регистрации</summary>
         private string _RFPassword;
+        /// <summary>Первый пароль регистрации</summary>
         public string RFPassword
         {
             get => _RFPassword;
@@ -76,7 +86,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Второй пароль регистрации
 
+        /// <summary>Второй пароль регистрации</summary>
         private string _RSPassword;
+        /// <summary>Второй пароль регистрации</summary>
         public string RSPassword
         {
             get => _RSPassword;
@@ -87,7 +99,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение об ошибках
 
+        /// <summary>Сообщение об ошибках</summary>
         private string _RErrorMessage;
+        /// <summary>Сообщение об ошибках</summary>
         public string RErrorMessage
         {
             get => _RErrorMessage;
@@ -102,11 +116,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда входа
 
+        /// <summary>Команда входа</summary>
         public ICommand AutorisationCommand { get; }
         private bool CanAutorisationCommandExecute(object d) => true;
         private void OnAutorisationCommandExecuted(object d)
         {
-            System.Windows.MessageBox.Show($"{ALogin} : {APassword}");
+            //System.Windows.MessageBox.Show($"{ALogin} : {APassword}");
 
             if (string.IsNullOrWhiteSpace(ALogin))
             {
@@ -128,7 +143,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             {
                 AErrorMessage = "";
                 ApplicationSPECIAL._CurrentUserId = OneStopStoreEntities.GetContext().Users.Where(x => x.userLogin == ALogin).First().userNumber;
-                System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
+                //System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
                 (d as AutorisationWindow).Close();
             }
         }
@@ -137,11 +152,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда регистрации и входа 
 
+        /// <summary>Команда регистрации и входа</summary>
         public ICommand RegistrateCommand { get; }
         private bool CanRegistrateCommandExecute(object d) => true;
         private void OnRegistrateCommandExecuted(object d)
         {
-            System.Windows.MessageBox.Show($"{RLogin} : {RFPassword} : {RSPassword}");
+            //System.Windows.MessageBox.Show($"{RLogin} : {RFPassword} : {RSPassword}");
 
             if (string.IsNullOrWhiteSpace(RLogin))
             {
@@ -186,13 +202,16 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 OneStopStoreEntities.GetContext().Users.Add(user);
                 OneStopStoreEntities.GetContext().SaveChanges();
                 ApplicationSPECIAL._CurrentUserId = OneStopStoreEntities.GetContext().Users.Where(x => x.userLogin == RLogin).First().userNumber;
-                System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
+                //System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
                 (d as AutorisationWindow).Close();
             }
         }
 
         #region Дополнительные методы для проверки логинов и паролей
 
+        /// <summary>Проверка чистая ли строка (содержит только латинские буквы и цифры)</summary>
+        /// <param name="s">Строка, которая проверяется</param>
+        /// <returns>Результат проверки (true - содержит, false - нет)</returns>
         public bool ContainsOtherSymbol(string s)
         {
             foreach (char c in s)
@@ -202,6 +221,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             }
             return false;
         }
+
+        /// <summary>Проверка подходит ли строка по "стандартам"(есть символы большие, маленькие и цифры)</summary>
+        /// <param name="s">Строка, которая проверяется</param>
+        /// <returns>Результат проверки (true - подходит, false - нет)</returns>
         public bool LoginStandart(string s)
         {
             bool hasBigChar = false;

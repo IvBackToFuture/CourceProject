@@ -31,7 +31,22 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanCreateNewGoodsCommandExecute(object d) => true;
         private void OnCreateNewGoodsCommandExecuted(object d)
         {
+            AddNewGoodsPageViewModel.Page = d as AccountPage;
             (d as AccountPage).NavigationService.Navigate(new AddNewGoodsPage());
+        }
+
+        #endregion
+
+        #region Команда обновления товара
+
+        public ICommand UpdateGoodsCommand { get; }
+        private bool CanUpdateGoodsCommandExecute(object d) => true;
+        private void OnUpdatewGoodsCommandExecuted(object d)
+        {
+            //System.Windows.MessageBox.Show(((dynamic)d).Goods.ToString());
+            AddNewGoodsPageViewModel.StatGoods = ((dynamic)d).Goods as Goods;
+            AddNewGoodsPageViewModel.Page = ((dynamic)d).Page as AccountPage;
+            (((dynamic)d).Page as AccountPage).NavigationService.Navigate(new AddNewGoodsPage());
         }
 
         #endregion
@@ -81,11 +96,13 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         public AccountPageViewModel()
         {
+            
             CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted, CanSaveChangesCommandExecute);
             ExitAccountCommand = new LambdaCommand(OnExitAccountCommandExecuted, CanExitAccountCommandExecute);
             BreakOrder = new LambdaCommand(OnBreakOrderExecuted, CanBreakOrderExecute);
             CreateNewGoodsCommand = new LambdaCommand(OnCreateNewGoodsCommandExecuted, CanCreateNewGoodsCommandExecute);
+            UpdateGoodsCommand = new LambdaCommand(OnUpdatewGoodsCommandExecuted, CanUpdateGoodsCommandExecute);
         }
     }
 }

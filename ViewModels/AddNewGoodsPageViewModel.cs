@@ -47,14 +47,41 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         public Categories ChoosenCategory
         {
             get => _ChoosenCategory;
-            set => Set(ref _ChoosenCategory, value);
+            set
+            {
+                Set(ref _ChoosenCategory, value);
+                if (CurrentGoods.Categories != ChoosenCategory)
+                {
+                    CurrentGoods.Categories = ChoosenCategory;
+                    CurrentGoods.goodsJson = null;
+                }
+            }
         }
+
+        #endregion
+
+        #region Страница для обновления
+
+        public static AccountPage Page { get; set; }
+
+        #endregion
+
+        #region Статическое свойство для передачи товара
+
+        public static Goods StatGoods { get; set; }
 
         #endregion
 
         public AddNewGoodsPageViewModel()
         {
-            CurrentGoods = new Goods();
+            if (StatGoods == null)
+                CurrentGoods = new Goods();
+            else
+            {
+                CurrentGoods = StatGoods;
+                CurrentImage = CurrentGoods.goodsPicture;
+            }
+            StatGoods = null;
             Categories = new ObservableCollection<Categories>(OneStopStoreEntities.GetContext().Categories);
             SetFullCharacterGoodsCommand = new LambdaCommand(OnSetFullCharacterGoodsCommandExecuted, CanSetFullCharacterGoodsCommandExecute);
             AddNewGoodsCommand = new LambdaCommand(OnAddNewGoodsCommandExecuted, CanAddNewGoodsCommandExecute);
@@ -66,7 +93,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanSetFullCharacterGoodsCommandExecute(object d) => true;
         private void OnSetFullCharacterGoodsCommandExecuted(object d)
         {
-            CurrentGoods.Categories = ChoosenCategory;
             ChoosingCharacteristicsForGoodsWindowViewModel.StatCurrentGoods = CurrentGoods;
             ChoosingCharacteristicsForGoodsWindow window = new ChoosingCharacteristicsForGoodsWindow();
             window.ShowDialog();
@@ -77,13 +103,15 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         #region Команда добавления нового товара
 
         public ICommand AddNewGoodsCommand { get; }
-        private bool CanAddNewGoodsCommandExecute(object d) => CurrentGoods.goodsJson != null && CurrentGoods.goodsCount > 0 && CurrentGoods.goodsName?.Count() > 5 && CurrentGoods.goodsCost > 0;
+        private bool CanAddNewGoodsCommandExecute(object d) => CurrentImage != null && CurrentGoods.goodsJson != null && CurrentGoods.goodsCount > 0 && CurrentGoods.goodsName?.Count() > 5 && CurrentGoods.goodsCost > 0;
         private void OnAddNewGoodsCommandExecuted(object d)
         {
             CurrentGoods.userNumber = ApplicationSPECIAL._CurrentUserId;
             CurrentGoods.goodsPicture = CurrentImage;
             OneStopStoreEntities.GetContext().Goods.Add(CurrentGoods);
             OneStopStoreEntities.GetContext().SaveChanges();
+            ((AccountPageViewModel)(Page.DataContext)).CurrentUser = null;
+            ((AccountPageViewModel)(Page.DataContext)).CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);
             (d as AddNewGoodsPage).NavigationService.GoBack();
         }
 
@@ -112,8 +140,15 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    CurrentImage = File.ReadAllBytes(file);
-                    break;
+                    try
+                    {
+                        CurrentImage = File.ReadAllBytes(file);
+                        break;
+                    }
+                    catch(Exception ex)
+                    {
+                        //MessageBox.Show($"{ex.Data}", $"{ex.Message}");
+                    }
                 }
             }
         }
@@ -126,7 +161,34 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         public byte[] CurrentImage
         {
             get => _CurrentImage;
-            set => Set(ref _CurrentImage, value);
+            set
+            {
+                if (IsValidImage(value))
+                    Set(ref _CurrentImage, value);
+            }
+        }
+
+        #endregion
+
+        #region Проверка на соответствие массива байтов картинке
+
+        public static bool IsValidImage(byte[] bytes)
+        {
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(bytes)) {
+                    var imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.StreamSource = ms;
+                    imageSource.EndInit();
+                    Image image = new Image() { Source = imageSource };
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion

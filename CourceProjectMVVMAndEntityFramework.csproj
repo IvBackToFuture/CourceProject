@@ -91,6 +91,8 @@
     <Compile Include="ViewModels\AddNewGoodsPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
     <Compile Include="ViewModels\ChoosingCharacteristicsForGoodsWindowViewModel.cs" />
+    <Compile Include="ViewModels\ConverterForChangeGoods.cs" />
+    <Compile Include="ViewModels\ConverterForJSONCharacters.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
     <Compile Include="Views\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>

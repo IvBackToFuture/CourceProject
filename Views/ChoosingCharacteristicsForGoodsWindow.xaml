@@ -6,26 +6,30 @@
         xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
         xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
         xmlns:json="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json"
-        mc:Ignorable="d"
+        mc:Ignorable="d" x:Name="Main"
         Title="ChoosingCharacteristicsForGoodsWindow" Height="450" Width="600" ResizeMode="NoResize">
     <Window.DataContext>
         <dc:ChoosingCharacteristicsForGoodsWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <dc:ConverterForJSONCharacters x:Key="JSONConverter"/>
+    </Window.Resources>
     <Grid>
         <ScrollViewer>
             <StackPanel>
-                <ItemsControl ItemsSource="{Binding CurrentGoods.Categories.JSON}">
+                <ItemsControl ItemsSource="{Binding GoodsCharacters}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <UniformGrid Rows="1" Margin="15,15,15,0">
                                 <TextBlock Text="{Binding Path=Name}" FontSize="14"/>
-                                <ComboBox ItemsSource="{Binding Path=Value}" 
-                                          SelectedIndex="0" FontSize="14"/>
+                                <ComboBox ItemsSource="{Binding Path=Value[1]}" SelectedItem="{Binding Path=Value[0]}"
+                                          FontSize="14" SelectedIndex="{Binding Path=Value[2], Converter={StaticResource JSONConverter}}"/>
                             </UniformGrid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Button Content="Добавить" Margin='15'/>
+                <Button Content="Установить" Margin="15" Command="{Binding SaveCharacterCommand}"
+                        CommandParameter="{Binding ElementName=Main}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

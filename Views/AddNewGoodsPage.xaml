@@ -15,7 +15,7 @@
     <Grid Background="White">
         <GroupBox Header="Товар">
             <StackPanel>
-                <Grid Height="250" VerticalAlignment="Top">
+                <Grid Height="280" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition/>

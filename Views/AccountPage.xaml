@@ -13,6 +13,9 @@
     <Page.DataContext>
         <dc:AccountPageViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <dc:ConverterForChangeGoods x:Key="Converter"/>
+    </Page.Resources>
     <Grid Background="white">
         <TabControl TabStripPlacement="Left" SelectedIndex="1" Style="{StaticResource MaterialDesignFilledTabControl}">
             <TabItem Width="130" Height="90" IsHitTestVisible="False">
@@ -49,13 +52,24 @@
                         <Run Text="Выставленные"/><LineBreak/><Run Text="товары"/>
                     </TextBlock>
                 </TabItem.Header>
-                <DockPanel>
+                <DockPanel x:Name="Data">
                     <Button Content="Выставить новый товар на продажу" Margin="10" DockPanel.Dock="Top"
                             Command="{Binding CreateNewGoodsCommand}" CommandParameter="{Binding ElementName=Page}"/>
                     <ListBox ItemsSource="{Binding CurrentUser.Goods}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel x:Name="Dat" Orientation="Horizontal">
+                                    <StackPanel.InputBindings>
+                                        <MouseBinding Command="{Binding DataContext.UpdateGoodsCommand, ElementName=Data}"
+                                                      MouseAction="LeftClick">
+                                            <MouseBinding.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource Converter}">
+                                                    <Binding ElementName="Dat" Path="DataContext"/>
+                                                    <Binding ElementName="Page"/>
+                                                </MultiBinding>
+                                            </MouseBinding.CommandParameter>
+                                        </MouseBinding>
+                                    </StackPanel.InputBindings>
                                     <TextBlock Text="{Binding Path=goodsName, StringFormat='Наименование товара: {0}. '}"/>
                                     <TextBlock Text="{Binding Path=goodsCost, StringFormat='Установленная цена: {0}. '}"/>
                                     <TextBlock Text="{Binding Path=goodsCount, StringFormat='Выставленное кол-во: {0}.'}"/>
