@@ -43,7 +43,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanUpdateGoodsCommandExecute(object d) => true;
         private void OnUpdatewGoodsCommandExecuted(object d)
         {
-            //System.Windows.MessageBox.Show(((dynamic)d).Goods.ToString());
             AddNewGoodsPageViewModel.StatGoods = ((dynamic)d).Goods as Goods;
             AddNewGoodsPageViewModel.Page = ((dynamic)d).Page as AccountPage;
             (((dynamic)d).Page as AccountPage).NavigationService.Navigate(new AddNewGoodsPage());

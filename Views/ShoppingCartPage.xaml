@@ -22,6 +22,7 @@
                         <ComboBox ItemsSource="{Binding Points}" SelectedItem="{Binding ChoosenPoint}" 
                                   SelectedIndex="0" FontSize="15"/>
                     </UniformGrid>
+                    <TextBlock Text="{Binding FinalPrice, StringFormat='Итоговая стоимость: {0}'}" Margin="5" FontSize="15"/>
                     <TextBlock Text="{Binding Message}" Margin="5"/>
                 </StackPanel>
                 <ScrollViewer>

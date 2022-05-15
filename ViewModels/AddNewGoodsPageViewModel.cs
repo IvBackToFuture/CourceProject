@@ -106,9 +106,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanAddNewGoodsCommandExecute(object d) => CurrentImage != null && CurrentGoods.goodsJson != null && CurrentGoods.goodsCount > 0 && CurrentGoods.goodsName?.Count() > 5 && CurrentGoods.goodsCost > 0;
         private void OnAddNewGoodsCommandExecuted(object d)
         {
-            CurrentGoods.userNumber = ApplicationSPECIAL._CurrentUserId;
             CurrentGoods.goodsPicture = CurrentImage;
-            OneStopStoreEntities.GetContext().Goods.Add(CurrentGoods);
+            if (!(CurrentGoods.userNumber > 0))
+            {
+                CurrentGoods.userNumber = ApplicationSPECIAL._CurrentUserId;
+                OneStopStoreEntities.GetContext().Goods.Add(CurrentGoods);
+            }
             OneStopStoreEntities.GetContext().SaveChanges();
             ((AccountPageViewModel)(Page.DataContext)).CurrentUser = null;
             ((AccountPageViewModel)(Page.DataContext)).CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);

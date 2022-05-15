@@ -27,6 +27,17 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Итоговая стоимость
+
+        private double _FinalPrice;
+        public double FinalPrice
+        {
+            get => _FinalPrice;
+            set => Set(ref _FinalPrice, value);
+        }
+
+        #endregion
+
         #region Сообщение для пользователя
 
         private string _Message;
@@ -65,6 +76,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             List<Goods> AllGoods = OneStopStoreEntities.GetContext().Goods.ToList();
             Goods = new ObservableCollection<Goods>(AllGoods.Where(x => x.InShoppingCart));
             Points = new ObservableCollection<PointOfIssue>(OneStopStoreEntities.GetContext().PointOfIssue);
+            FinalPrice = Goods.Sum(x => x.goodsCost * x.CountInShoppingCart);
 
             AddCountGoodsInShoppingCart = new LambdaCommand(OnAddCountGoodsInShoppingCartExecuted, CanAddCountGoodsInShoppingCartExecute);
             RemoveCountGoodsInShoppingCart = new LambdaCommand(OnRemoveCountGoodsInShoppingCartExecuted, CanRemoveCountGoodsInShoppingCartExecute);
@@ -79,7 +91,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         /// <summary>Команда увеличения кол-ва товара на единицу</summary>
         public ICommand AddCountGoodsInShoppingCart { get; }
         private bool CanAddCountGoodsInShoppingCartExecute(object d) => (d as Goods)?.CountInShoppingCart < (d as Goods)?.goodsCount;
-        private void OnAddCountGoodsInShoppingCartExecuted(object d) => (d as Goods).CountInShoppingCart += 1;
+        private void OnAddCountGoodsInShoppingCartExecuted(object d)
+        {
+            (d as Goods).CountInShoppingCart += 1;
+            FinalPrice += (d as Goods).goodsCost;
+        }
 
         #endregion
 
@@ -88,7 +104,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         /// <summary>Команда уменьшения кол-ва товара на единицу</summary>
         public ICommand RemoveCountGoodsInShoppingCart { get; }
         private bool CanRemoveCountGoodsInShoppingCartExecute(object d) => (d as Goods)?.CountInShoppingCart > 1;
-        private void OnRemoveCountGoodsInShoppingCartExecuted(object d) => (d as Goods).CountInShoppingCart -= 1;
+        private void OnRemoveCountGoodsInShoppingCartExecuted(object d)
+        {
+            (d as Goods).CountInShoppingCart -= 1;
+            FinalPrice -= (d as Goods).goodsCost;
+        }
 
         #endregion
 
@@ -99,8 +119,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanDeleteGoodsFromShoppingCartExecute(object d) => (d as Goods)?.InShoppingCart ?? true;
         private void OnDeleteGoodsFromShoppingCartExecuted(object d)
         {
-            (d as Goods).InShoppingCart = false;
-            Goods.Remove(d as Goods);
+            Goods goods = d as Goods;
+            FinalPrice -= goods.goodsCost * goods.CountInShoppingCart;
+            goods.InShoppingCart = false;
+            Goods.Remove(goods);
         }
 
         #endregion
@@ -140,7 +162,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     }
                     OneStopStoreEntities.GetContext().Orders.Add(currentOrder);
                     OneStopStoreEntities.GetContext().SaveChanges();
-                    Message = "Покупка завершена";
+                    Message = $"Покупка завершена. Заказ был отправлен по адресу: {ChoosenPoint}";
                 }
             }
         }

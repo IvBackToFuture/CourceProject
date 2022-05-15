@@ -1,6 +1,7 @@
 ﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
+using CourceProjectMVVMAndEntityFramework.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,6 +18,8 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
     class GoodsOnCategoryPageViewModel : BaseViewModel
     {
+        //Goods = new ObservableCollection<Goods>(GoodsForPage.Where(x => x.goodsCost >= MinPrice && x.goodsCost <= MaxPrice));
+
         #region Минимальная и максимальная цены
 
         /// <summary>Минимальная цена</summary>
@@ -25,7 +28,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         public double MinPrice
         {
             get => _MinPrice;
-            set => Set(ref _MinPrice, value);
+            set
+            {
+                Set(ref _MinPrice, value);
+                CostWasChanged = true;
+            }
         }
 
         /// <summary>Максимальная цена</summary>
@@ -34,8 +41,15 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         public double MaxPrice
         {
             get => _MaxPrice;
-            set => Set(ref _MaxPrice, value);
+            set
+            {
+                Set(ref _MaxPrice, value);
+                CostWasChanged = true;
+            }
         }
+
+        /// <summary>Были ли изменены максимальная и минимальная цены</summary>
+        private bool CostWasChanged;
 
         #endregion
 
@@ -95,50 +109,79 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         public GoodsOnCategoryPageViewModel()
         {
-            string SearchStr = _SearchStr?.ToLower() ?? "";     //Поисковая строка
+            string SearchStr = _SearchStr?.ToLower() ?? "";
             Category = ChoosenCategory;
 
             if (Category.catJson != null)
             {
                 GoodsForPage = OneStopStoreEntities.GetContext().Goods
                     .Where(x => x.catNumber == Category.catNumber
-                    && x.goodsName.ToLower().Contains(SearchStr)).ToList();
+                    && x.goodsName.ToLower().Contains(SearchStr) && x.goodsCount > 0).ToList();
             }
             else
             {
                 GoodsForPage = OneStopStoreEntities.GetContext().Goods
-                    .Where(x => x.goodsName.ToLower().Contains(SearchStr)).ToList();
+                    .Where(x => x.goodsName.ToLower().Contains(SearchStr) && x.goodsCount > 0).ToList();
             }
+            MinPrice = GoodsForPage.Min(x => x.goodsCost);
+            MaxPrice = GoodsForPage.Max(x => x.goodsCost);
+
             Goods = new ObservableCollection<Goods>(GoodsForPage);
 
             ChangeSearchDictionaryCommand = new LambdaCommand(OnChangeSearchDictionaryCommandExecuted, CanChangeSearchDictionaryCommandExecute);
             AddToShoppingCart = new LambdaCommand(OnAddToShoppingCartExecuted, CanAddToShoppingCartExecute);
+            ShowGoodsCharactersCommand = new LambdaCommand(OnShowGoodsCharactersCommandExecuted, CanShowGoodsCharactersCommandExecute);
+            FindOnCostCommand = new LambdaCommand(OnFindOnCostCommandExecuted, CanFindOnCostCommandExecute);
         }
 
         #region Метод повторного поиска
 
         public void DoResearch()
         {
-            string SearchStr = _SearchStr?.ToLower() ?? "";     //Поисковая строка
+            string SearchStr = _SearchStr?.ToLower() ?? "";
             Category = ChoosenCategory;
 
             if (Category.catJson != null)
             {
                 GoodsForPage = OneStopStoreEntities.GetContext().Goods
                     .Where(x => x.catNumber == Category.catNumber
-                    && x.goodsName.ToLower().Contains(SearchStr)).ToList();
+                    && x.goodsName.ToLower().Contains(SearchStr) && x.goodsCount > 0).ToList();
             }
             else
             {
                 GoodsForPage = OneStopStoreEntities.GetContext().Goods
-                    .Where(x => x.goodsName.ToLower().Contains(SearchStr)).ToList();
+                    .Where(x => x.goodsName.ToLower().Contains(SearchStr) && x.goodsCount > 0).ToList();
             }
             Goods = new ObservableCollection<Goods>(GoodsForPage);
         }
 
         #endregion
 
-        #region
+        #region Команда открытия страницы просмотра товара
+
+        public ICommand ShowGoodsCharactersCommand { get; }
+        private bool CanShowGoodsCharactersCommandExecute(object d) => true;
+        private void OnShowGoodsCharactersCommandExecuted(object d)
+        {
+            InfoAboutGoodsPageViewModel.StatGoods = ((dynamic)d).Goods as Goods;
+            (((dynamic)d).Page as GoodsOnCategoryPage).NavigationService.Navigate(new InfoAboutGoodsPage());
+        }
+
+        #endregion
+
+        #region Команда поиска по цене
+
+        public ICommand FindOnCostCommand { get; }
+        private bool CanFindOnCostCommandExecute(object d) => true;
+        private void OnFindOnCostCommandExecuted(object d)
+        {
+            if (CostWasChanged)
+                Goods = new ObservableCollection<Goods>(GoodsForPage.Where(x => x.goodsCost >= MinPrice && x.goodsCost <= MaxPrice));
+        }
+
+        #endregion
+
+        #region Команда добавления в корзину
 
         public ICommand AddToShoppingCart { get; }
         private bool CanAddToShoppingCartExecute(object d) => (d is null) ? false : !(d as Goods).InShoppingCart;
