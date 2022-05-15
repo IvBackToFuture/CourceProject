@@ -1,0 +1,25 @@
+﻿<Window x:Class="CourceProjectMVVMAndEntityFramework.Views.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
+        xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+        mc:Ignorable="d" x:Name="Main"
+        Title="StartWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.DataContext>
+        <dc:StartWindowViewModel/>
+    </Window.DataContext>
+    <StackPanel>
+        <TextBlock TextAlignment="Center" FontSize="25">
+            <Run Text="Курсовой проект студента группы 090203-9о-19"/>
+            <LineBreak/>
+            <Run Text="Сугробова Ивана"/>
+        </TextBlock>
+        <TextBlock Text="Выберите режим запуска" FontSize="25" TextAlignment="Center" Margin="0,50,0,25"/>
+        <Button Content="Войти как пользователь" HorizontalAlignment="Center" Margin="0,25,0,25" 
+                Width="400" FontSize="18" Command="{Binding MoveOnUserWindow}" CommandParameter="{Binding ElementName=Main}"/>
+        <Button Content="Войти как отвественный за точку" HorizontalAlignment="Center" Width="400" FontSize="18"
+                Command="{Binding MoveOnPointOfIssueWindow}" CommandParameter="{Binding ElementName=Main}"/>
+    </StackPanel>
+</Window>

@@ -70,6 +70,21 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
+        #region Команда снятия с продажи товара
+
+        public ICommand WithdrawFromSaleCommand { get; }
+        private bool CanWithdrawFromSaleCommandExecute(object d) => true;
+        private void OnWithdrawFromSaleCommandExecuted(object d)
+        {
+            Goods goods = d as Goods;
+            OneStopStoreEntities.GetContext().Goods.Remove(goods);
+            OneStopStoreEntities.GetContext().SaveChanges();
+            CurrentUser = null;
+            CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);
+        }
+
+        #endregion
+
         #region Команда сохранения изменений
 
         public ICommand SaveChangesCommand { get; }
@@ -102,6 +117,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             BreakOrder = new LambdaCommand(OnBreakOrderExecuted, CanBreakOrderExecute);
             CreateNewGoodsCommand = new LambdaCommand(OnCreateNewGoodsCommandExecuted, CanCreateNewGoodsCommandExecute);
             UpdateGoodsCommand = new LambdaCommand(OnUpdatewGoodsCommandExecuted, CanUpdateGoodsCommandExecute);
+            WithdrawFromSaleCommand = new LambdaCommand(OnWithdrawFromSaleCommandExecuted, CanWithdrawFromSaleCommandExecute);
         }
     }
 }

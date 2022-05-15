@@ -90,11 +90,15 @@
     <Compile Include="ViewModels\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\AddNewGoodsPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
+    <Compile Include="ViewModels\AutorizationPageForPointOfIssueViewModel.cs" />
     <Compile Include="ViewModels\ChoosingCharacteristicsForGoodsWindowViewModel.cs" />
     <Compile Include="ViewModels\ConverterForChangeGoods.cs" />
     <Compile Include="ViewModels\ConverterForJSONCharacters.cs" />
     <Compile Include="ViewModels\InfoAboutGoodsPageViewModel.cs" />
+    <Compile Include="ViewModels\PointOfIssueWindowViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
+    <Compile Include="ViewModels\StartWindowViewModel.cs" />
+    <Compile Include="ViewModels\WorkPlacePointPageViewModel.cs" />
     <Compile Include="Views\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
@@ -104,14 +108,26 @@
     <Compile Include="Views\AutorisationWindow.xaml.cs">
       <DependentUpon>AutorisationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AutorizationPageForPointOfIssue.xaml.cs">
+      <DependentUpon>AutorizationPageForPointOfIssue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChoosingCharacteristicsForGoodsWindow.xaml.cs">
       <DependentUpon>ChoosingCharacteristicsForGoodsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InfoAboutGoodsPage.xaml.cs">
       <DependentUpon>InfoAboutGoodsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PointOfIssueWindow.xaml.cs">
+      <DependentUpon>PointOfIssueWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShoppingCartPage.xaml.cs">
       <DependentUpon>ShoppingCartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartWindow.xaml.cs">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkPlacePointPage.xaml.cs">
+      <DependentUpon>WorkPlacePointPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AccountPage.xaml">
       <SubType>Designer</SubType>
@@ -122,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AutorisationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AutorizationPageForPointOfIssue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,7 +186,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PointOfIssueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShoppingCartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkPlacePointPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -73,6 +73,8 @@
                                     <TextBlock Text="{Binding Path=goodsName, StringFormat='Наименование товара: {0}. '}"/>
                                     <TextBlock Text="{Binding Path=goodsCost, StringFormat='Установленная цена: {0}. '}"/>
                                     <TextBlock Text="{Binding Path=goodsCount, StringFormat='Выставленное кол-во: {0}.'}"/>
+                                    <Button Content="Снять с продажи" Command="{Binding DataContext.WithdrawFromSaleCommand, ElementName=Page}"
+                                            CommandParameter="{Binding DataContext, ElementName=Dat}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
