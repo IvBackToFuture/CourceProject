@@ -17,7 +17,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Новая категория
 
+        /// <summary>Новая категория</summary>
         private Categories _Category;
+        /// <summary>Новая категория</summary>
         public Categories Category
         {
             get => _Category;
@@ -28,7 +30,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Строка с именем нового свойства
 
+        /// <summary>Строка с именем нового свойства</summary>
         private string _NewCharater;
+        /// <summary>Строка с именем нового свойства</summary>
         public string NewCharacter
         {
             get => _NewCharater;
@@ -39,7 +43,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Строка с новым значением
 
+        /// <summary>Строка с новым значением</summary>
         private string _NewValue;
+        /// <summary>Строка с новым значением</summary>
         public string NewValue
         {
             get => _NewValue;
@@ -50,7 +56,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region JObject для формирования характеристик
 
+        /// <summary>JObject для формирования характеристик</summary>
         private JObject _Properties;
+        /// <summary>JObject для формирования характеристик</summary>
         public JObject Properties
         {
             get => _Properties;
@@ -61,7 +69,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region JProperty для формирования значений характеристик
 
+        /// <summary>JProperty для формирования значений характеристик</summary>
         private JProperty _ChoosenProperty;
+        /// <summary>JProperty для формирования значений характеристик</summary>
         public JProperty ChoosenProperty
         {
             get => _ChoosenProperty;
@@ -72,7 +82,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region JValue для удаления значений
 
+        /// <summary>JValue для удаления значений</summary>
         private JValue _ChoosenValue;
+        /// <summary>JValue для удаления значений</summary>
         public JValue ChoosenValue
         {
             get => _ChoosenValue;
@@ -83,7 +95,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение
 
+        /// <summary>Сообщение</summary>
         private string _Message;
+        /// <summary>Сообщение</summary>
         public string Message
         {
             get => _Message;
@@ -94,6 +108,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Статическое свойство для добавления новой категории
 
+        /// <summary>Статическое свойство для добавления новой категории</summary>
         public static Page WorkPlace;
 
         #endregion
@@ -111,6 +126,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления нового свойства
 
+        /// <summary>Команда добавления нового свойства</summary>
         public ICommand AddNewCharacterCommand { get; }
         private bool CanAddNewCharacterCommandExecute(object d) => !string.IsNullOrWhiteSpace(NewCharacter) && !Properties.ContainsKey(NewCharacter);
         private void OnAddNewCharacterCommandExecuted(object d)
@@ -123,6 +139,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда удаления свойства
 
+        /// <summary>Команда удаления свойства</summary>
         public ICommand RemoveCharacterCommand { get; }
         private bool CanRemoveCharacterCommandExecute(object d) => ChoosenProperty != null;
         private void OnRemoveCharacterCommandExecuted(object d)
@@ -134,6 +151,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления нового значения
 
+        /// <summary>Команда добавления нового значения</summary>
         public ICommand AddNewValueCommand { get; }
         private bool CanAddNewValueCommandExecute(object d) => !string.IsNullOrWhiteSpace(NewValue) && ChoosenProperty != null &&
             !(ChoosenProperty.Value as JArray).Select(x => x.ToString()).Contains(NewValue);
@@ -147,6 +165,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда удаления значения
 
+        /// <summary>Команда удаления значения</summary>
         public ICommand RemoveValueCommand { get; }
         private bool CanRemoveValueCommandExecute(object d) => ChoosenValue != null;
         private void OnRemoveValueCommandExecuted(object d)
@@ -158,6 +177,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда сохранения новой категории
 
+        /// <summary>Команда сохранения новой категории</summary>
         public ICommand AddNewCategoryCommand { get; }
         private bool CanAddNewCategoryCommandExecute(object d) => !string.IsNullOrWhiteSpace(Category.catName?.Trim()) && Properties.Count > 0 && Properties.Values<JProperty>().ToList().All(x => (x.Value as JArray).Count() > 2);
         private void OnAddNewCategoryCommandExecuted(object d)

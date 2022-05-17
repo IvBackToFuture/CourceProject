@@ -2,15 +2,10 @@
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -138,6 +133,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Метод повторного поиска
 
+        /// <summary>Метод повторного поиска</summary>
         public void DoResearch()
         {
             string SearchStr = _SearchStr?.ToLower() ?? "";
@@ -161,6 +157,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда открытия страницы просмотра товара
 
+        /// <summary>Команда открытия страницы просмотра товара</summary>
         public ICommand ShowGoodsCharactersCommand { get; }
         private bool CanShowGoodsCharactersCommandExecute(object d) => true;
         private void OnShowGoodsCharactersCommandExecuted(object d)
@@ -173,6 +170,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда поиска по цене
 
+        /// <summary>Команда поиска по цене</summary>
         public ICommand FindOnCostCommand { get; }
         private bool CanFindOnCostCommandExecute(object d) => true;
         private void OnFindOnCostCommandExecuted(object d)
@@ -185,6 +183,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления в корзину
 
+        /// <summary>Команда добавления в корзину</summary>
         public ICommand AddToShoppingCart { get; }
         private bool CanAddToShoppingCartExecute(object d) => (d is null) ? false : !(d as Goods).InShoppingCart;
         private void OnAddToShoppingCartExecuted(object d)

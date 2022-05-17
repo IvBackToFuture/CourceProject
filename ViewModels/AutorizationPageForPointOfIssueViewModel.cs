@@ -3,10 +3,8 @@ using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +17,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Логин для входа
 
+        /// <summary>Логин для входа</summary>
         private string _ILogin;
+        /// <summary>Логин для входа</summary>
         public string ILogin
         {
             get => _ILogin;
@@ -30,7 +30,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Пароль для входа
 
+        /// <summary>Пароль для входа</summary>
         private string _IPassword;
+        /// <summary>Пароль для входа</summary>
         public string IPassword
         {
             get => _IPassword;
@@ -41,7 +43,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение для входа
 
+        /// <summary>Сообщение для входа</summary>
         private string _IMessage;
+        /// <summary>Сообщение для входа</summary>
         public string IMessage
         {
             get => _IMessage;
@@ -56,7 +60,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Фамилия ответственного
 
+        /// <summary>Фамилия ответственного</summary>
         private string _Surname;
+        /// <summary>Фамилия ответственного</summary>
         public string Surname
         {
             get => _Surname;
@@ -67,7 +73,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Имя ответственного
 
+        /// <summary>Имя ответственного</summary>
         private string _Firstname;
+        /// <summary>Имя ответственного</summary>
         public string Firstname
         {
             get => _Firstname;
@@ -78,7 +86,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Отчество ответственного
 
+        /// <summary>Отчество ответственного</summary>
         private string _Secondname;
+        /// <summary>Отчество ответственного</summary>
         public string Secondname
         {
             get => _Secondname;
@@ -89,7 +99,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Местоположение точки
 
+        /// <summary>Местоположение точки</summary>
         private string _Location;
+        /// <summary>Местоположение точки</summary>
         public string Location
         {
             get => _Location;
@@ -100,7 +112,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение для открытия новой точки
 
+        /// <summary>Сообщение для открытия новой точки</summary>
         private string _OpenMessage;
+        /// <summary>Сообщение для открытия новой точки</summary>
         public string OpenMessage
         {
             get => _OpenMessage;
@@ -119,6 +133,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда входа в аккаунт
 
+        /// <summary>Команда входа в аккаунт</summary>
         public ICommand AutorizatePointOfIssueCommand { get; }
         private bool CanAutorizatePointOfIssueCommandExecute(object d) => true;
         private void OnAutorizatePointOfIssueCommandExecuted(object d)
@@ -151,6 +166,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Открытие новой точки
 
+        /// <summary>Открытие новой точки</summary>
         public ICommand OpenNewPointOfIssueCommand { get; }
         private bool CanOpenNewPointOfIssueCommandExecute(object d) => true;
         private void OnOpenNewPointOfIssueCommandExecuted(object d)
@@ -179,6 +195,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Генераторы логина и пароля
 
+        /// <summary>Конвертер кириллицы в латиницу</summary>
+        /// <param name="s">Строка для конвертирования</param>
+        /// <returns>Результат конвертирования обрезанный до 30 символов</returns>
         private string ConverterKirInLat(string s)
         {
 
@@ -203,6 +222,8 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             return ret.ToString();
         }
 
+        /// <summary>Генератор логина</summary>
+        /// <returns>Возвращает логин</returns>
         private string GenerateLogin()
         {
             Random ran = new Random();
@@ -215,6 +236,8 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             return newLogin;
         }
 
+        /// <summary>Генератор пароля</summary>
+        /// <returns>Возвращает пароль</returns>
         private string GeneratePassword()
         {
             Random ran = new Random();

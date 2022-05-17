@@ -121,8 +121,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanAutorisationCommandExecute(object d) => true;
         private void OnAutorisationCommandExecuted(object d)
         {
-            //System.Windows.MessageBox.Show($"{ALogin} : {APassword}");
-
             if (string.IsNullOrWhiteSpace(ALogin))
             {
                 AErrorMessage = "Введите логин";
@@ -143,7 +141,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             {
                 AErrorMessage = "";
                 ApplicationSPECIAL._CurrentUserId = OneStopStoreEntities.GetContext().Users.Where(x => x.userLogin == ALogin).First().userNumber;
-                //System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
                 (d as AutorisationWindow).Close();
             }
         }
@@ -157,8 +154,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         private bool CanRegistrateCommandExecute(object d) => true;
         private void OnRegistrateCommandExecuted(object d)
         {
-            //System.Windows.MessageBox.Show($"{RLogin} : {RFPassword} : {RSPassword}");
-
             if (string.IsNullOrWhiteSpace(RLogin))
             {
                 RErrorMessage = "Введите логин";
@@ -202,7 +197,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 OneStopStoreEntities.GetContext().Users.Add(user);
                 OneStopStoreEntities.GetContext().SaveChanges();
                 ApplicationSPECIAL._CurrentUserId = OneStopStoreEntities.GetContext().Users.Where(x => x.userLogin == RLogin).First().userNumber;
-                //System.Windows.MessageBox.Show(ApplicationSPECIAL._CurrentUserId.ToString());
                 (d as AutorisationWindow).Close();
             }
         }

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Models;
-using CourceProjectMVVMAndEntityFramework.ViewModels;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
 
@@ -30,7 +27,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Итоговая стоимость
 
+        /// <summary>Итоговая стоимость</summary>
         private double _FinalPrice;
+        /// <summary>Итоговая стоимость</summary>
         public double FinalPrice
         {
             get => _FinalPrice;
@@ -41,7 +40,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Сообщение для пользователя
 
+        /// <summary>Сообщение для пользователя</summary>
         private string _Message;
+        /// <summary>Сообщение для пользователя</summary>
         public string Message
         {
             get => _Message;
@@ -52,7 +53,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Список пунктов доставки
 
+        /// <summary>Список пунктов доставки</summary>
         private ObservableCollection<PointOfIssue> _Points;
+        /// <summary>Список пунктов доставки</summary>
         public ObservableCollection<PointOfIssue> Points
         {
             get => _Points;
@@ -63,7 +66,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Выбранный пункт доставки
 
+        /// <summary>Выбранный пункт доставки</summary>
         private PointOfIssue _ChosenPoint;
+        /// <summary>Выбранный пункт доставки</summary>
         public PointOfIssue ChoosenPoint
         {
             get => _ChosenPoint;
@@ -74,6 +79,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Статическое свойство для подтверждения заказа
 
+        /// <summary>Статическое свойство для подтверждения заказа</summary>
         public static bool CanPay { get; set; }
 
         #endregion
@@ -90,8 +96,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             DeleteGoodsFromShoppingCart = new LambdaCommand(OnDeleteGoodsFromShoppingCartExecuted, CanDeleteGoodsFromShoppingCartExecute);
             CreateOrder = new LambdaCommand(OnCreateOrderExecuted, CanCreateOrderExecute);
         }
-
-        #region Команды
 
         #region Команда увеличения кол-ва товара на единицу
 
@@ -136,6 +140,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда оформления заказа
 
+        /// <summary>Команда оформления заказа</summary>
         public ICommand CreateOrder { get; }
         private bool CanCreateOrderExecute(object d) => Goods.Count() > 0;
         private void OnCreateOrderExecuted(object d)
@@ -183,8 +188,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             }
         }
       
-        #endregion
-
         #endregion
     }
 }

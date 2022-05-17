@@ -1,11 +1,6 @@
 ﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,6 +16,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда перехода к окну пользователя
 
+        /// <summary>Команда перехода к окну пользователя</summary>
         public ICommand MoveOnUserWindow { get; }
         private bool CanMoveOnUserWindowExecute(object d) => true;
         private void OnMoveOnUserWindowExecuted(object d)
@@ -33,6 +29,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда перехода к окну ответственного за точку
 
+        /// <summary>Команда перехода к окну ответственного за точку</summary>
         public ICommand MoveOnPointOfIssueWindow { get; }
         private bool CanMoveOnPointOfIssueWindowExecute(object d) => true;
         private void OnMoveOnPointOfIssueWindowExecuted(object d)

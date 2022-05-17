@@ -2,13 +2,9 @@
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Word = Microsoft.Office.Interop.Word;
@@ -19,7 +15,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Текущая точка
 
+        /// <summary>Текущая точка</summary>
         private PointOfIssue _CurrentPoint;
+        /// <summary>Текущая точка</summary>
         public PointOfIssue CurrentPoint
         {
             get => _CurrentPoint;
@@ -30,7 +28,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Список всех категорий
 
+        /// <summary>Список всех категорий</summary>
         private ObservableCollection<Categories> _Categories;
+        /// <summary>Список всех категорий</summary>
         public ObservableCollection<Categories> Categories
         {
             get => _Categories;
@@ -53,6 +53,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда формирования бланка заказа
 
+        /// <summary>Команда формирования бланка заказа</summary>
         public ICommand GetOrderBlankCommand { get; }
         private bool CanGetOrderBlankCommandExecute(object d) => true;
         private void OnGetOrderBlankCommandExecuted(object d)
@@ -184,6 +185,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления новой категории
 
+        /// <summary>Команда добавления новой категории</summary>
         public ICommand AddNewCategoryCommand { get; }
         private bool CanAddNewCategoryCommandExecute(object d) => true;
         private void OnAddNewCategoryCommandExecuted(object d)
@@ -196,6 +198,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда удаления категории
 
+        /// <summary>Команда удаления категории</summary>
         public ICommand DeleteCategoryCommand { get; }
         private bool CanDeleteCategoryCommandExecute(object d) => true;
         private void OnDeleteCategoryCommandExecuted(object d)
@@ -210,6 +213,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда сохранения изменений в аккаунте
 
+        /// <summary>Команда сохранения изменений в аккаунте</summary>
         public ICommand SaveChangesCommand { get; }
         private bool CanSaveChangesCommandExecute(object d) => true;
         private void OnSaveChangesCommandExecuted(object d)
@@ -221,6 +225,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда выхода из точки
 
+        /// <summary>Команда выхода из точки</summary>
         public ICommand ExitAccountCommand { get; }
         private bool CanExitAccountCommandExecute(object d) => true;
         private void OnExitAccountCommandExecuted(object d)
@@ -232,6 +237,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда принятия заказа
 
+        /// <summary>Команда принятия заказа</summary>
         public ICommand TakeOrderCommand { get; }
         private bool CanTakeOrderCommandExecute(object d) => (d as Orders)?.orderStatus == 0;
         private void OnTakeOrderCommandExecuted(object d)

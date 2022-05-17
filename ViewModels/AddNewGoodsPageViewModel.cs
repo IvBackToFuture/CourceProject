@@ -21,7 +21,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Текущий товар
 
+        /// <summary>Текущий товар</summary>
         private Goods _CurrentGoods;
+        /// <summary>Текущий товар</summary>
         public Goods CurrentGoods
         {
             get => _CurrentGoods;
@@ -32,7 +34,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Список категорий
 
+        /// <summary>Список категорий</summary>
         private ObservableCollection<Categories> _Categories;
+        /// <summary>Список категорий</summary>
         public ObservableCollection<Categories> Categories
         {
             get => _Categories;
@@ -43,7 +47,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Выбранная категория
 
+        /// <summary>Выбранная категория</summary>
         private Categories _ChoosenCategory;
+        /// <summary>Выбранная категория</summary>
         public Categories ChoosenCategory
         {
             get => _ChoosenCategory;
@@ -62,12 +68,14 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Страница для обновления
 
+        /// <summary>Страница для обновления</summary>
         public static AccountPage Page { get; set; }
 
         #endregion
 
         #region Статическое свойство для передачи товара
 
+        /// <summary>Статическое свойство для передачи товара</summary>
         public static Goods StatGoods { get; set; }
 
         #endregion
@@ -89,6 +97,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда открытия окна установки дополнительных свойств
 
+        /// <summary>Команда открытия окна установки дополнительных свойств</summary>
         public ICommand SetFullCharacterGoodsCommand { get; }
         private bool CanSetFullCharacterGoodsCommandExecute(object d) => true;
         private void OnSetFullCharacterGoodsCommandExecuted(object d)
@@ -102,6 +111,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления нового товара
 
+        /// <summary>Команда добавления нового товара</summary>
         public ICommand AddNewGoodsCommand { get; }
         private bool CanAddNewGoodsCommandExecute(object d) => CurrentImage != null && CurrentGoods.goodsJson != null && CurrentGoods.goodsCount > 0 && CurrentGoods.goodsName?.Count() > 5 && CurrentGoods.goodsCost > 0;
         private void OnAddNewGoodsCommandExecuted(object d)
@@ -160,7 +170,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Картинка
 
+        /// <summary>Картинка</summary>
         private byte[] _CurrentImage;
+        /// <summary>Картинка</summary>
         public byte[] CurrentImage
         {
             get => _CurrentImage;
@@ -175,6 +187,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Проверка на соответствие массива байтов картинке
 
+        /// <summary>Проверка на соответствие массива байтов картинке</summary>
+        /// <param name="bytes">Массив байтов подлежащих проверке</param>
+        /// <returns>Можно ли создать из массива байтов картинку</returns>
         public static bool IsValidImage(byte[] bytes)
         {
             try

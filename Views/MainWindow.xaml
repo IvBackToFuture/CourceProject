@@ -10,7 +10,6 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" 
         Title="MainWindow" MinWidth="960" MinHeight="540">
-    <!--Height="720" Width="1280" 9:16-->
     <Window.DataContext>
         <ct:MainWindowViewModel/>
     </Window.DataContext>

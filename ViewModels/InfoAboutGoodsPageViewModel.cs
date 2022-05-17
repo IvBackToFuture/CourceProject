@@ -1,11 +1,6 @@
 ﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
@@ -14,7 +9,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Выбранный товар
 
+        /// <summary>Выбранный товар</summary>
         private Goods _ChoosenGoods;
+        /// <summary>Выбранный товар</summary>
         public Goods ChoosenGoods
         {
             get => _ChoosenGoods;
@@ -25,6 +22,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Статическое свойство для передачи товара
 
+        /// <summary>Статическое свойство для передачи товара</summary>
         public static Goods StatGoods { get; set; }
 
         #endregion
@@ -37,6 +35,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления в корзину
 
+        /// <summary>Команда добавления в корзину</summary>
         public ICommand AddToShoppingCart { get; }
         private bool CanAddToShoppingCartExecute(object d) => !ChoosenGoods.InShoppingCart;
         private void OnAddToShoppingCartExecuted(object d)

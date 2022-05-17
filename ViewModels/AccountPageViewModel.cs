@@ -15,8 +15,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
 
         #region Текущий аккаунт
-        
+
+        /// <summary>Текущий аккаунт</summary>
         private Users _CurrentUser;
+        /// <summary>Текущий аккаунт</summary>
         public Users CurrentUser
         {
             get => _CurrentUser;
@@ -27,6 +29,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда добавления нового товара
 
+        /// <summary>Команда добавления нового товара</summary>
         public ICommand CreateNewGoodsCommand { get; }
         private bool CanCreateNewGoodsCommandExecute(object d) => true;
         private void OnCreateNewGoodsCommandExecuted(object d)
@@ -39,6 +42,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда обновления товара
 
+        /// <summary>Команда обновления товара</summary>
         public ICommand UpdateGoodsCommand { get; }
         private bool CanUpdateGoodsCommandExecute(object d) => true;
         private void OnUpdatewGoodsCommandExecuted(object d)
@@ -52,6 +56,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда отката заказа
 
+        /// <summary>Команда отката заказа</summary>
         public ICommand BreakOrder { get; }
         private bool CanBreakOrderExecute(object d) => (d as Orders)?.orderStatus == 0;
         private void OnBreakOrderExecuted(object d)
@@ -72,6 +77,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда снятия с продажи товара
 
+        /// <summary>Команда снятия с продажи товара</summary>
         public ICommand WithdrawFromSaleCommand { get; }
         private bool CanWithdrawFromSaleCommandExecute(object d) => (d as Goods)?.goodsCount > 0;
         private void OnWithdrawFromSaleCommandExecuted(object d)
@@ -87,6 +93,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда сохранения изменений
 
+        /// <summary>Команда сохранения изменений</summary>
         public ICommand SaveChangesCommand { get; }
         private bool CanSaveChangesCommandExecute(object d) => true;
         private void OnSaveChangesCommandExecuted(object d)
@@ -98,6 +105,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда выхода из аккаунта
 
+        /// <summary>Команда выхода из аккаунта</summary>
         public ICommand ExitAccountCommand { get; }
         private bool CanExitAccountCommandExecute(object d) => true;
         private void OnExitAccountCommandExecuted(object d)

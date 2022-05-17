@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
+﻿using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
 using System.Windows.Input;
-using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using CourceProjectMVVMAndEntityFramework.Models;
@@ -16,8 +10,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
     class MainWindowViewModel : BaseViewModel
     {
-        #region Команды
-
+        
         #region Комманда возвращения на предыдущую страницу
 
         /// <summary>Комманда возвращения на предыдущую страницу</summary>
@@ -33,6 +26,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Команда перехода в окну аторизации/регистрации
 
+        /// <summary>Команда перехода в окну аторизации/регистрации</summary>
         public ICommand AutoRegWindowOpenCommand { get; }
         private bool CanAutoRegWindowOpenCommandExecute(object d) => true;
         private void OnAutoRegWindowOpenCommandExecuted(object d)
@@ -84,11 +78,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #endregion
 
-        #endregion
-
         #region Список категорий для ComboBox'а
 
+        /// <summary>Список категорий для ComboBox'а</summary>
         private ObservableCollection<Categories> _Categories;
+        /// <summary>Список категорий для ComboBox'а</summary>
         public ObservableCollection<Categories> Categories
         {
             get => _Categories;
@@ -99,7 +93,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Выбранная категория
 
+        /// <summary>Выбранная категория</summary>
         private Categories _ChoosenCategory;
+        /// <summary>Выбранная категория</summary>
         public Categories ChoosenCategory
         {
             get => _ChoosenCategory;
@@ -110,7 +106,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Поисковая строка
 
+        /// <summary>Поисковая строка</summary>
         private string _SearchString;
+        /// <summary>Поисковая строка</summary>
         public string SearchString
         {
             get => _SearchString;
@@ -121,14 +119,10 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         public MainWindowViewModel()
         {
-            #region Команды
-
             MoveBackCommand = new LambdaCommand(OnMoveBackCommandExecuted, CanMoveBackCommandExecute);
             FindOnNameCommand = new LambdaCommand(OnFindOnNameCommandExecuted, CanFindOnNameCommandExecute);
             AutoRegWindowOpenCommand = new LambdaCommand(OnAutoRegWindowOpenCommandExecuted, CanAutoRegWindowOpenCommandExecute);
             OpenShoppingCartCommand = new LambdaCommand(OnOpenShoppingCartCommandExecuted, CanOpenShoppingCartCommandExecute);
-
-            #endregion
 
             Categories = new ObservableCollection<Categories>(OneStopStoreEntities.GetContext().Categories);
             Categories AllCategory = OneStopStoreEntities.GetContext().Categories.Create();

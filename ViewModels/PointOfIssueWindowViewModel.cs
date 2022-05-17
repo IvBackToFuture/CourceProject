@@ -1,10 +1,5 @@
 ﻿using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using CourceProjectMVVMAndEntityFramework.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
@@ -13,12 +8,14 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Текущая страница
 
+        /// <summary>Текущая страница</summary>
         public Page CurrentPage { get; }
 
         #endregion
 
         #region Номер текущей точки
 
+        /// <summary>Номер текущей точки</summary>
         public static int PointOfIssueNumber { get; set; }
 
         #endregion

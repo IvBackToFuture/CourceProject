@@ -1,11 +1,6 @@
 ﻿using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,7 +10,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
     {
         #region Номер карты
 
+        /// <summary>Номер карты</summary>
         private ulong _CardNumber;
+        /// <summary>Номер карты</summary>
         public ulong CardNumber
         {
             get => _CardNumber;
@@ -26,7 +23,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region Дата окончания работы
 
+        /// <summary>Дата окончания работы</summary>
         private DateTime _EndDate;
+        /// <summary>Дата окончания работы</summary>
         public DateTime EndDate
         {
             get => _EndDate;
@@ -37,7 +36,9 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 
         #region CVV код
 
+        /// <summary>CVV код</summary>
         private int _CVVCode;
+        /// <summary>CVV код</summary>
         public int CVVCode
         {
             get => _CVVCode;
@@ -53,7 +54,8 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         }
 
         #region Команда оплаты
-        
+
+        /// <summary>Команда оплаты</summary>
         public ICommand PayCommand { get; }
         private bool CanPayCommandExecute(object d) => CardNumber > 0 && CVVCode > 0;
         private void OnPayCommandExecuted(object d)
