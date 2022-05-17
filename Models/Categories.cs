@@ -13,7 +13,7 @@ namespace CourceProjectMVVMAndEntityFramework.Models
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Categories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +21,7 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         {
             this.Goods = new HashSet<Goods>();
         }
-    
+
         public int catNumber { get; set; }
         public string catName { get; set; }
         public string catJson { get; set; }
@@ -40,4 +40,5 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Goods> Goods { get; set; }
     }
+
 }

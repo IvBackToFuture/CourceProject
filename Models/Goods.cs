@@ -87,4 +87,5 @@ namespace CourceProjectMVVMAndEntityFramework.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders_Goods> Orders_Goods { get; set; }
     }
+
 }
