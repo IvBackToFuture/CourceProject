@@ -88,6 +88,7 @@
       <DependentUpon>OneStopStore.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountPageViewModel.cs" />
+    <Compile Include="ViewModels\AddNewCategoryWindowViewModel.cs" />
     <Compile Include="ViewModels\AddNewGoodsPageViewModel.cs" />
     <Compile Include="ViewModels\AutorisationWindowViewModel.cs" />
     <Compile Include="ViewModels\AutorizationPageForPointOfIssueViewModel.cs" />
@@ -95,12 +96,16 @@
     <Compile Include="ViewModels\ConverterForChangeGoods.cs" />
     <Compile Include="ViewModels\ConverterForJSONCharacters.cs" />
     <Compile Include="ViewModels\InfoAboutGoodsPageViewModel.cs" />
+    <Compile Include="ViewModels\PaymentFormWindowViewModel.cs" />
     <Compile Include="ViewModels\PointOfIssueWindowViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
     <Compile Include="ViewModels\StartWindowViewModel.cs" />
     <Compile Include="ViewModels\WorkPlacePointPageViewModel.cs" />
     <Compile Include="Views\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewCategoryWindow.xaml.cs">
+      <DependentUpon>AddNewCategoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddNewGoodsPage.xaml.cs">
       <DependentUpon>AddNewGoodsPage.xaml</DependentUpon>
@@ -117,6 +122,9 @@
     <Compile Include="Views\InfoAboutGoodsPage.xaml.cs">
       <DependentUpon>InfoAboutGoodsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PaymentFormWindow.xaml.cs">
+      <DependentUpon>PaymentFormWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PointOfIssueWindow.xaml.cs">
       <DependentUpon>PointOfIssueWindow.xaml</DependentUpon>
     </Compile>
@@ -130,6 +138,10 @@
       <DependentUpon>WorkPlacePointPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewCategoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +198,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PaymentFormWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PointOfIssueWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,7 +283,35 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

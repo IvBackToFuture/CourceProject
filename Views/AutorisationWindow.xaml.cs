@@ -38,5 +38,12 @@ namespace CourceProjectMVVMAndEntityFramework.Views
         {
             ((dynamic)this.DataContext).RSPassword = RSPassword.Password;
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!(e.Text[0] >= 'a' && e.Text[0] <= 'z' || e.Text[0] >= 'A' && e.Text[0] <= 'Z' 
+                || e.Text[0] >= '0' && e.Text[0] <= '9'))
+                e.Handled = true;
+        }
     }
 }

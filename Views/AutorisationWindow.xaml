@@ -26,10 +26,11 @@
                 <StackPanel Margin="30">
                     <TextBox Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30" Text="{Binding ALogin}"
                              VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
+                             md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                             PreviewTextInput="TextBox_PreviewTextInput"/>
                     <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" MaxLength="30" PasswordChanged="APassword_PasswordChanged"
                              VerticalContentAlignment="Center"  md:HintAssist.Hint="Пароль" x:Name="APassword"
-                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}" PreviewTextInput="TextBox_PreviewTextInput"/>
                     <Button Margin="10,10,10,0" Height="50" Content="Войти" Command="{Binding AutorisationCommand}" CommandParameter="{Binding ElementName=window}"/>
                     <TextBlock Text="{Binding AErrorMessage}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                 </StackPanel>
@@ -38,13 +39,14 @@
                 <StackPanel Margin="30,10,30,10">
                     <TextBox Text="{Binding RLogin}" Margin="10" Height="50" FontSize="18" Padding="5,12,5,12" MaxLength="30" 
                              VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
+                             md:HintAssist.Hint="Логин" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                             PreviewTextInput="TextBox_PreviewTextInput"/>
                     <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" x:Name="RFPassword" PasswordChanged="RFPassword_PasswordChanged"
                                  VerticalContentAlignment="Center" MaxLength="30" md:HintAssist.Hint="Пароль"
-                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}" PreviewTextInput="TextBox_PreviewTextInput"/>
                     <PasswordBox Margin="10" Height="50" FontSize="18" Padding="5,0,5,0" x:Name="RSPassword" PasswordChanged="RSPassword_PasswordChanged"
                                  VerticalContentAlignment="Center" MaxLength="30" md:HintAssist.Hint="Пароль (повтор)"
-                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}" PreviewTextInput="TextBox_PreviewTextInput"/>
                     <Button Margin="10,10,10,0" Height="50" Content="Зарегистрироваться" Command="{Binding RegistrateCommand}" CommandParameter="{Binding ElementName=window}"/>
                     <TextBlock Text="{Binding RErrorMessage}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                 </StackPanel>

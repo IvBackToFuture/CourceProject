@@ -24,5 +24,12 @@ namespace CourceProjectMVVMAndEntityFramework.Views
         {
             InitializeComponent();
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string str = (sender as TextBox).Text;
+            if (!( e.Text[0] >= '0' && e.Text[0] <= '9' || e.Text[0] == '.' && str.Count() > 0 && !str.Contains('.')))
+                e.Handled = true;
+        }
     }
 }

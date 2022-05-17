@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
       xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
       xmlns:des="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"  x:Name="Main"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AutorizationPageForPointOfIssue">
@@ -25,9 +26,11 @@
                             </Style>
                         </UniformGrid.Resources>
                         <TextBlock Text="Логин"/>
-                        <TextBox Text="{Binding ILogin}" Margin="0,45,0,40" FontSize="18" MaxLength="30"/>
+                        <TextBox Text="{Binding ILogin}" Margin="0,45,0,40" FontSize="18" MaxLength="30"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <TextBlock Text="Пароль"/>
-                        <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Margin="0,45,0,40" FontSize="18" MaxLength="30"/>
+                        <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Margin="0,45,0,40"  PreviewTextInput="TextBox_PreviewTextInput"
+                                     FontSize="18" MaxLength="30"/>
                     </UniformGrid>
                     <Button Content="Войти" Command="{Binding AutorizatePointOfIssueCommand}" Margin="50,0,50,0"
                             CommandParameter="{Binding ElementName=Main}"/>
@@ -45,18 +48,22 @@
                         </UniformGrid.Resources>
                         <TextBlock Text="Фамилия отвественного за точку"/>
                         <TextBox des:HintAssist.HelperText="минимальный размер 3 символа" MaxLength="30" Margin="0,20,0,20"
-                                 FontSize="18" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"/>
+                                 FontSize="18" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_1"/>
                         <TextBlock Text="Имя отвественного за точку"/>
                         <TextBox des:HintAssist.HelperText="минимальный размер 3 символа" MaxLength="30" Margin="0,20,0,20" 
-                                 FontSize="18" Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}"/>
+                                 FontSize="18" Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_1"/>
                         <TextBlock Text="Отчество отвественного за точку*"/>
                         <TextBox des:HintAssist.HelperText="минимальный размер 3 символа" MaxLength="30" Margin="0,20,0,20" 
-                                 FontSize="18" Text="{Binding Secondname, UpdateSourceTrigger=PropertyChanged}"/>
+                                 FontSize="18" Text="{Binding Secondname, UpdateSourceTrigger=PropertyChanged}"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_1"/>
                         <TextBlock Text="Месторасположение точки"/>
                         <TextBox des:HintAssist.HelperText="минимальный размер 10 символов" MaxLength="100" Margin="0,20,0,20" 
-                                 FontSize="18" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"/>
+                                 FontSize="18" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_2"/>
                     </UniformGrid>
-                    <Button Content="Войти" Margin="50,0,50,0" Command="{Binding OpenNewPointOfIssueCommand}"
+                    <Button Content="Зарегистрировать новую точку" Margin="50,0,50,0" Command="{Binding OpenNewPointOfIssueCommand}"
                             CommandParameter="{Binding ElementName=Main}"/>
                     <TextBlock Margin="50,20,50,0" Text="{Binding OpenMessage}"/>
                 </StackPanel>

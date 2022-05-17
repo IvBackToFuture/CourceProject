@@ -36,7 +36,7 @@
                         <TextBlock Text="Кол-во выставленных товаров (шт.)"/>
                         <TextBlock Text="{Binding ChoosenGoods.goodsCount}" Margin="0,0,0,40"/>
                         <TextBlock Text="Цена выставленного товара (руб.)"/>
-                        <TextBlock Text="{Binding ChoosenGoods.goodsCost}" Margin="0,0,0,40"/>
+                        <TextBlock Text="{Binding ChoosenGoods.goodsCost, StringFormat=F2}" Margin="0,0,0,40"/>
                         <TextBlock Text="Категория"/>
                         <TextBlock Text="{Binding ChoosenGoods.Categories.catName}" Margin="0,0,0,30"/>
                     </UniformGrid>

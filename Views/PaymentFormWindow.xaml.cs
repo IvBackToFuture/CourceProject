@@ -10,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CourceProjectMVVMAndEntityFramework
+namespace CourceProjectMVVMAndEntityFramework.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для PaymentFormWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PaymentFormWindow : Window
     {
-        public MainWindow()
+        public PaymentFormWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!(e.Text[0] >= 'а' && e.Text[0] <= 'я' || e.Text[0] >= 'А' && e.Text[0] <= 'Я'
-                || e.Text[0] == ' ' || e.Text[0] >= '0' && e.Text[0] <= '9'))
+            if (!(e.Text[0] >= 48 && e.Text[0] <= 57))
                 e.Handled = true;
         }
     }

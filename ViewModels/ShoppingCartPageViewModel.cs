@@ -9,6 +9,7 @@ using CourceProjectMVVMAndEntityFramework.Infrastructure.Commands.Base;
 using CourceProjectMVVMAndEntityFramework.Models;
 using CourceProjectMVVMAndEntityFramework.ViewModels;
 using CourceProjectMVVMAndEntityFramework.ViewModels.Base;
+using CourceProjectMVVMAndEntityFramework.Views;
 
 namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
@@ -68,6 +69,12 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
             get => _ChosenPoint;
             set => Set(ref _ChosenPoint, value);
         }
+
+        #endregion
+
+        #region Статическое свойство для подтверждения заказа
+
+        public static bool CanPay { get; set; }
 
         #endregion
 
@@ -145,24 +152,33 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     string.IsNullOrWhiteSpace(user.userLocation) ||
                     string.IsNullOrWhiteSpace(user.userPhone) ||
                     string.IsNullOrWhiteSpace(user.userMail))
-                Message = "Требуется заполнить обязательные поля на вкладке аккаунт";
+                    Message = "Требуется заполнить обязательные поля на вкладке аккаунт";
                 else
                 {
-                    Orders currentOrder = new Orders();
-                    currentOrder.orderDate = DateTime.Now.Date;
-                    currentOrder.buyerNumber = ApplicationSPECIAL._CurrentUserId;
-                    currentOrder.orderStatus = 0;
-                    currentOrder.PointOfIssue = ChoosenPoint;
-                    foreach (Goods goods in Goods.ToList())
+                    new PaymentFormWindow().ShowDialog();
+                    if (CanPay)
                     {
-                        currentOrder.Orders_Goods.Add(new Orders_Goods { goodsNumber = goods.goodsNumber, goodsCount = goods.CountInShoppingCart, orderNumber = currentOrder.orderNumber });
-                        goods.goodsCount -= goods.CountInShoppingCart;
-                        goods.InShoppingCart = false;
-                        Goods.Remove(goods);
+                        Orders currentOrder = new Orders();
+                        currentOrder.orderDate = DateTime.Now.Date;
+                        currentOrder.buyerNumber = ApplicationSPECIAL._CurrentUserId;
+                        currentOrder.orderStatus = 0;
+                        currentOrder.PointOfIssue = ChoosenPoint;
+                        foreach (Goods goods in Goods.ToList())
+                        {
+                            currentOrder.Orders_Goods.Add(new Orders_Goods { goodsNumber = goods.goodsNumber, goodsCount = goods.CountInShoppingCart, orderNumber = currentOrder.orderNumber });
+                            goods.goodsCount -= goods.CountInShoppingCart;
+                            goods.InShoppingCart = false;
+                            Goods.Remove(goods);
+                        }
+                        OneStopStoreEntities.GetContext().Orders.Add(currentOrder);
+                        OneStopStoreEntities.GetContext().SaveChanges();
+                        Message = $"Покупка завершена. Заказ был отправлен по адресу: {ChoosenPoint}";
+                        CanPay = false;
                     }
-                    OneStopStoreEntities.GetContext().Orders.Add(currentOrder);
-                    OneStopStoreEntities.GetContext().SaveChanges();
-                    Message = $"Покупка завершена. Заказ был отправлен по адресу: {ChoosenPoint}";
+                    else
+                    {
+                        Message = "Покупка не была окончена";
+                    }
                 }
             }
         }

@@ -169,6 +169,7 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 point.pointPassword = GeneratePassword();
                 OneStopStoreEntities.GetContext().PointOfIssue.Add(point);
                 OneStopStoreEntities.GetContext().SaveChanges();
+                MessageBox.Show($"Данные для входа:\nЛогин: {point.pointLogin}\nПароль: {point.pointPassword}\nИх можно поменять в меню аккаунт", "Личный логин и пароль", MessageBoxButton.OK);
                 PointOfIssueWindowViewModel.PointOfIssueNumber = point.pointNumber;
                 (d as Page).NavigationService.Navigate(new WorkPlacePointPage());
             }

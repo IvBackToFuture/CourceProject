@@ -73,11 +73,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
         #region Команда снятия с продажи товара
 
         public ICommand WithdrawFromSaleCommand { get; }
-        private bool CanWithdrawFromSaleCommandExecute(object d) => true;
+        private bool CanWithdrawFromSaleCommandExecute(object d) => (d as Goods)?.goodsCount > 0;
         private void OnWithdrawFromSaleCommandExecuted(object d)
         {
             Goods goods = d as Goods;
-            OneStopStoreEntities.GetContext().Goods.Remove(goods);
+            goods.goodsCount = 0;
             OneStopStoreEntities.GetContext().SaveChanges();
             CurrentUser = null;
             CurrentUser = OneStopStoreEntities.GetContext().Users.Find(ApplicationSPECIAL._CurrentUserId);

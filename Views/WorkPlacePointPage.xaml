@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
       xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
       xmlns:icon="http://schemas.fontawesome.com/icons/"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" x:Name="Page"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WorkPlacePointPage">
@@ -28,17 +29,23 @@
                             Margin="5" FontSize="20"/>
                     <UniformGrid Columns="2">
                         <TextBlock Text="Фамилия" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointOwnerSurname}" MaxLength="30" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointOwnerSurname}" MaxLength="30" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <TextBlock Text="Имя" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointOwnerFirstname}" MaxLength="30" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointOwnerFirstname}" MaxLength="30" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <TextBlock Text="Отчество*" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointOwnerSecondname}" MaxLength="30" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointOwnerSecondname}" MaxLength="30" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <TextBlock Text="Местонахождение" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointLocation}" MaxLength="100" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointLocation}" MaxLength="100" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput_1"/>
                         <TextBlock Text="Логин" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointLogin}" MaxLength="30" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointLogin}" MaxLength="30" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput_2"/>
                         <TextBlock Text="Пароль" FontSize="18" Margin="10"/>
-                        <TextBox Text="{Binding CurrentPoint.pointPassword}" MaxLength="30" FontSize="18" Margin="10"/>
+                        <TextBox Text="{Binding CurrentPoint.pointPassword}" MaxLength="30" Margin="10"
+                                  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" FontSize="18" PreviewTextInput="TextBox_PreviewTextInput_2"/>
                     </UniformGrid>
                 </DockPanel>
             </TabItem>
@@ -48,6 +55,10 @@
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type data:Orders}" ItemsSource="{Binding Path=Orders_Goods}">
                             <StackPanel>
+                                <StackPanel.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" CommandParameter="{Binding Path=DataContext, ElementName=Data}"
+                                                  Command="{Binding Path=DataContext.GetOrderBlankCommand, ElementName=Page}"/>
+                                </StackPanel.InputBindings>
                                 <UniformGrid Columns="3" x:Name="Data">
                                     <TextBlock Text="{Binding Path=orderNumber, StringFormat='Заказ №{0:000000}.'}"/>
                                     <TextBlock>
@@ -79,6 +90,24 @@
                         </DataTemplate>
                     </TreeView.Resources>
                 </TreeView>
+            </TabItem>
+            <TabItem Header="Категории">
+                <StackPanel>
+                    <Button Content="Добавить новую категорию" Margin="20" Command="{Binding AddNewCategoryCommand}"
+                            CommandParameter="{Binding ElementName=Page}"/>
+                    <ListBox ItemsSource="{Binding Categories}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel x:Name="Categ">
+                                    <TextBlock Text="{Binding catNumber, StringFormat='Номер категории: {0} '}"/>
+                                    <TextBlock Text="{Binding catName, StringFormat='Наименование: {0}'}"/>
+                                    <Button Content="Удалить категорию" Command="{Binding DataContext.DeleteCategoryCommand, ElementName=Page}"
+                                            CommandParameter="{Binding DataContext, ElementName=Categ}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Grid>

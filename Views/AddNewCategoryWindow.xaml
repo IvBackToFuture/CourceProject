@@ -1,0 +1,56 @@
+﻿<Window x:Class="CourceProjectMVVMAndEntityFramework.Views.AddNewCategoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
+        xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" x:Name="Main"
+        Title="AddNewCategoryWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.DataContext>
+        <dc:AddNewCategoryWindowViewModel/>
+    </Window.DataContext>
+    <StackPanel>
+        <UniformGrid Columns="2">
+            <TextBlock Text="Введите наименование новой категории" FontSize="18"/>
+            <TextBox Text="{Binding Category.catName, UpdateSourceTrigger=PropertyChanged}" FontSize="18"
+                     MaxLength="100"  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput"/>
+        </UniformGrid>
+        <Button Content="Сохранить новую категорию" Command="{Binding AddNewCategoryCommand}"
+                CommandParameter="{Binding ElementName=Main}" Margin="10"/>
+        <TextBlock Text="{Binding Message}" Margin="10,0,10,10"/>
+        <UniformGrid Columns="2">
+            <StackPanel>
+                <TextBlock Text="Введите наименование нового свойства"/>
+                <TextBox Text="{Binding NewCharacter, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="20" md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <Button Content="Добавить новое свойство" Command="{Binding AddNewCharacterCommand}"/>
+                <Button Content="Удалить свойство" Command="{Binding RemoveCharacterCommand}"/>
+                <ListBox Height="203" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                         ItemsSource="{Binding Properties}" SelectedItem="{Binding ChoosenProperty}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Введите наименование нового значения"/>
+                <TextBox Text="{Binding NewValue, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="20"  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_1"/>
+                <Button Content="Добавить новое значение" Command="{Binding AddNewValueCommand}"/>
+                <Button Content="Удалить значение" Command="{Binding RemoveValueCommand}"/>
+                <ListBox Height="203" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                         ItemsSource="{Binding ChoosenProperty.Value}" SelectedItem="{Binding ChoosenValue}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Value}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</Window>

@@ -43,13 +43,15 @@
                         </TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="От:"/>
-                            <TextBox  Text="{Binding MinPrice, UpdateSourceTrigger=PropertyChanged}" Width="50">
+                            <TextBox  Text="{Binding MinPrice, UpdateSourceTrigger=PropertyChanged,StringFormat=F2}"
+                                      Width="50" MaxLength="11" PreviewTextInput="TextBox_PreviewTextInput">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Return" Command="{Binding FindOnCostCommand}"/>
                                 </TextBox.InputBindings>
                             </TextBox>
                             <TextBlock Text="до:"/>
-                            <TextBox Text="{Binding MaxPrice, UpdateSourceTrigger=PropertyChanged}" MaxLength="10" Width="50">
+                            <TextBox Text="{Binding MaxPrice, UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" 
+                                     MaxLength="11" Width="50" PreviewTextInput="TextBox_PreviewTextInput">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Return" Command="{Binding FindOnCostCommand}"/>
                                 </TextBox.InputBindings>
@@ -99,7 +101,7 @@
                                     </Border>
                                     <StackPanel Grid.Column="1" Margin="50,50,0,0">
                                         <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsName}"/>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost}"/>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Stretch" Text="{Binding goodsCost, StringFormat='{}{0:F2} руб.'}"/>
                                     </StackPanel>
                                     <Button Grid.Column="2" Width="220" Height="80" Command="{Binding Path=DataContext.AddToShoppingCart, ElementName=Main}"
                                                     CommandParameter="{Binding Path=DataContext, ElementName=goodsObj}" Content="Добавить в корзину" FontSize="20"/>

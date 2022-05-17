@@ -32,17 +32,23 @@
                             Margin="5" FontSize="20"/>
                     <UniformGrid Columns="2">
                         <TextBlock Text="Фамилия" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userSurname}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userSurname}" MaxLength="30" FontSize="22" PreviewTextInput="TextBox_PreviewTextInput"
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
                         <TextBlock Text="Имя" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userFirstname}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userFirstname}" MaxLength="30" FontSize="22" PreviewTextInput="TextBox_PreviewTextInput"
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
                         <TextBlock Text="Отчество*" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userSecondname}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userSecondname}" MaxLength="30" FontSize="22" PreviewTextInput="TextBox_PreviewTextInput"
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
                         <TextBlock Text="Номер телефона" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userPhone}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userPhone}" MaxLength="11" FontSize="22" PreviewTextInput="TextBox_PreviewTextInput_1"
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
                         <TextBlock Text="Почта" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userMail}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userMail}" MaxLength="100" FontSize="22" 
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_2"/>
                         <TextBlock Text="Геопозиция" FontSize="22" Margin="10"/>
-                        <TextBox Text="{Binding CurrentUser.userLocation}" FontSize="22" Margin="10"/>
+                        <TextBox Text="{Binding CurrentUser.userLocation}" MaxLength="100" FontSize="22" PreviewTextInput="TextBox_PreviewTextInput_3"
+                                 Margin="10" md:TextFieldAssist.CharacterCounterVisibility="Collapsed"/>
                     </UniformGrid>
                 </DockPanel>
             </TabItem>
@@ -71,10 +77,10 @@
                                         </MouseBinding>
                                     </StackPanel.InputBindings>
                                     <TextBlock Text="{Binding Path=goodsName, StringFormat='Наименование товара: {0}. '}"/>
-                                    <TextBlock Text="{Binding Path=goodsCost, StringFormat='Установленная цена: {0}. '}"/>
+                                    <TextBlock Text="{Binding Path=goodsCost, StringFormat='Установленная цена: {0:F2}. '}"/>
                                     <TextBlock Text="{Binding Path=goodsCount, StringFormat='Выставленное кол-во: {0}.'}"/>
                                     <Button Content="Снять с продажи" Command="{Binding DataContext.WithdrawFromSaleCommand, ElementName=Page}"
-                                            CommandParameter="{Binding DataContext, ElementName=Dat}"/>
+                                            CommandParameter="{Binding DataContext, ElementName=Dat}" Margin="20,0,0,0"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

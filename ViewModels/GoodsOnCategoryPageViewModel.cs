@@ -18,7 +18,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
 {
     class GoodsOnCategoryPageViewModel : BaseViewModel
     {
-        //Goods = new ObservableCollection<Goods>(GoodsForPage.Where(x => x.goodsCost >= MinPrice && x.goodsCost <= MaxPrice));
 
         #region Минимальная и максимальная цены
 
@@ -123,8 +122,11 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 GoodsForPage = OneStopStoreEntities.GetContext().Goods
                     .Where(x => x.goodsName.ToLower().Contains(SearchStr) && x.goodsCount > 0).ToList();
             }
-            MinPrice = GoodsForPage.Min(x => x.goodsCost);
-            MaxPrice = GoodsForPage.Max(x => x.goodsCost);
+            if (GoodsForPage.Count > 0)
+            {
+                MinPrice = GoodsForPage.Min(x => x.goodsCost);
+                MaxPrice = GoodsForPage.Max(x => x.goodsCost);
+            }
 
             Goods = new ObservableCollection<Goods>(GoodsForPage);
 

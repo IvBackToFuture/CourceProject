@@ -61,8 +61,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                 obj.Add(k.Key, k.Value["0"]);
             }
             CurrentGoods.JSON = obj;
-            System.Diagnostics.Trace.WriteLine(obj);
-            System.Diagnostics.Trace.WriteLine(GoodsCharacters);
             (d as ChoosingCharacteristicsForGoodsWindow).Close();
         }
 
@@ -94,7 +92,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     int val = 0;
                     foreach (var c in CurrentGoods.Categories.JSON[k.Key])
                     {
-                        System.Diagnostics.Trace.WriteLine("_" + c + "_:_" + CurrentGoods.JSON[k.Key] + "_");
                         if (c.ToString() == CurrentGoods.JSON[k.Key]?.ToString()) break;
                         val++;
                     }
@@ -102,12 +99,6 @@ namespace CourceProjectMVVMAndEntityFramework.ViewModels
                     GoodsCharacters.Add(k.Key, token);
                 }
             }
-
-            foreach(var k in GoodsCharacters)
-            {
-                System.Diagnostics.Trace.WriteLine($"Объект: {k}\nИмя свойства: {k.Key}\nВыбранное значение: {k.Value["0"]}\nВсе значения: {k.Value["1"]}\nИндекс значенния: {k.Value["2"]}");
-            }
-
             SaveCharacterCommand = new LambdaCommand(OnSaveCharacterCommandExecuted, CanSaveCharacterCommandExecute);
         }
     }

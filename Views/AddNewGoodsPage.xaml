@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourceProjectMVVMAndEntityFramework.Views"
       xmlns:dc="clr-namespace:CourceProjectMVVMAndEntityFramework.ViewModels"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:dd="urn:gong-wpf-dragdrop"
       mc:Ignorable="d" Name="Page"
       d:DesignHeight="450" d:DesignWidth="800"
@@ -31,11 +32,14 @@
                     </StackPanel>
                     <UniformGrid Columns="2" Grid.Column="1">
                         <TextBlock Text="Наименование товара"/>
-                        <TextBox Text="{Binding CurrentGoods.goodsName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,40" />
+                        <TextBox Text="{Binding CurrentGoods.goodsName, UpdateSourceTrigger=PropertyChanged}" MaxLength="30"
+                                 Margin="0,0,0,40"  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <TextBlock Text="Кол-во выставляемого товара (шт.)"/>
-                        <TextBox Text="{Binding CurrentGoods.goodsCount, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,40"/>
+                        <TextBox Text="{Binding CurrentGoods.goodsCount, UpdateSourceTrigger=PropertyChanged}" MaxLength="9"
+                                 Margin="0,0,0,40"  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" PreviewTextInput="TextBox_PreviewTextInput_1"/>
                         <TextBlock Text="Цена выставляемого товара (руб.)"/>
-                        <TextBox Text="{Binding CurrentGoods.goodsCost, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,40"/>
+                        <TextBox Text="{Binding CurrentGoods.goodsCost, UpdateSourceTrigger=PropertyChanged, StringFormat='F2'}" 
+                                 Margin="0,0,0,40"  md:TextFieldAssist.CharacterCounterVisibility="Collapsed" MaxLength="11" PreviewTextInput="TextBox_PreviewTextInput_2"/>
                         <TextBlock Text="Выберите категорию к которой относится товар"/>
                         <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding ChoosenCategory}"
                                   SelectedIndex="0" Margin="0,0,0,30"/>
